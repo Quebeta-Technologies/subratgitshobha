@@ -1,0 +1,145 @@
+{
+  "project_name": "SHOBHA Healthcare",
+  "theme": "Light",
+  "archetype": "1 & 4 (Organic & Earthy + Swiss & High-Contrast)",
+  "design_philosophy": "A premium, top-tier global pharmaceutical brand style. Elegant, expensive, minimal, and highly credible. Uses clean white space, a strong typography hierarchy, and a premium grid-based layout. It avoids generic e-commerce looks, leaning into a 'Big Pharma' authority mixed with modern editorial health and wellness elements.",
+  "colors": {
+    "primary": {
+      "DEFAULT": "#0738A6",
+      "hover": "#052C82",
+      "description": "Trust, CTAs, headings, navigation, main interactions."
+    },
+    "secondary": {
+      "DEFAULT": "#7A1F7A",
+      "description": "Premium accents, specific corporate highlights."
+    },
+    "accent": {
+      "cyan": "#62C7F5",
+      "green": "#9DCD4A",
+      "gold": "#F2C14E",
+      "coral": "#E84D6C",
+      "description": "Cyan: Wellness icons. Green: Nutraceutical accents. Gold/Coral: Subtle badges/callouts."
+    },
+    "text": {
+      "primary": "#12233D",
+      "secondary": "#4B5563",
+      "description": "Navy for headings and high-contrast readable elements, body gray for paragraphs."
+    },
+    "background": {
+      "default": "#FFFFFF",
+      "alt": "#F7FAFD",
+      "dark": "#12233D",
+      "description": "White as the main canvas, Light Background for alternating sections, Dark Navy for footer and heavy contrast sections."
+    },
+    "border": {
+      "DEFAULT": "#E9EEF5"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Poppins",
+      "body": "Inter"
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl lg:text-6xl tracking-tight font-semibold text-[#12233D]",
+      "h2": "text-3xl md:text-4xl tracking-tight font-semibold text-[#12233D]",
+      "h3": "text-xl md:text-2xl font-medium text-[#12233D]",
+      "body": "text-base leading-relaxed text-[#4B5563]",
+      "small": "text-sm text-[#4B5563]",
+      "overline": "text-xs font-semibold tracking-[0.2em] uppercase text-[#0738A6]"
+    }
+  },
+  "spacing_and_layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-20 lg:py-32",
+    "grid_bento": "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8",
+    "borderRadius": {
+      "card": "rounded-2xl",
+      "button": "rounded-full",
+      "image": "rounded-2xl"
+    },
+    "shadows": {
+      "subtle": "shadow-[0_4px_20px_rgba(7,56,166,0.05)]",
+      "hover": "shadow-[0_8px_30px_rgba(7,56,166,0.12)]"
+    }
+  },
+  "components": {
+    "utility_bar": {
+      "style": "bg-[#12233D] text-[#E9EEF5] text-xs md:text-sm py-2",
+      "layout": "flex justify-between items-center"
+    },
+    "header": {
+      "style": "sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#E9EEF5]",
+      "nav_links": "text-[#12233D] font-medium hover:text-[#0738A6] transition-colors"
+    },
+    "buttons": {
+      "primary": "bg-[#0738A6] text-white hover:bg-[#052C82] font-semibold px-6 py-3 rounded-full transition-all shadow-md hover:shadow-lg",
+      "secondary": "bg-transparent border-2 border-[#0738A6] text-[#0738A6] hover:bg-[#F7FAFD] font-semibold px-6 py-3 rounded-full transition-all",
+      "wellness": "bg-[#9DCD4A] text-[#12233D] hover:bg-[#8BBA3A] font-semibold px-6 py-3 rounded-full transition-all"
+    },
+    "cards": {
+      "standard": "bg-white border border-[#E9EEF5] p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(7,56,166,0.12)]",
+      "admin": "bg-white border border-[#E9EEF5] p-6 rounded-xl shadow-sm"
+    },
+    "forms": {
+      "input": "w-full bg-white border border-[#E9EEF5] rounded-lg px-4 py-3 text-[#12233D] focus:ring-2 focus:ring-[#0738A6] focus:border-transparent outline-none transition-all",
+      "label": "block text-sm font-medium text-[#12233D] mb-1"
+    }
+  },
+  "sections": {
+    "hero_carousel": {
+      "layout": "split",
+      "details": "Left side: Typography-heavy with H1 and Primary CTA. Right side: Premium image inside a rounded-2xl container with a subtle shadow. 3 slides rotating seamlessly."
+    },
+    "trust_strip": {
+      "layout": "bg-[#F7FAFD] border-y border-[#E9EEF5] py-12",
+      "details": "4-column grid of large numbers/stats in #0738A6 with sub-labels in #4B5563. Use counting animation if possible."
+    },
+    "what_we_do": {
+      "layout": "Bento or 3-column grid",
+      "details": "Cards for Oncology, MDI Inhalers, Critical Care, Biologicals, Nutraceuticals. Icons colored in #62C7F5 or #9DCD4A. Clean white backgrounds."
+    },
+    "global_presence": {
+      "layout": "Full width with background map image",
+      "details": "Use the generated global network map as a background with #12233D overlay at 80% opacity, white text, and glowing accent points."
+    },
+    "founder_message": {
+      "layout": "Split 40/60 layout",
+      "details": "Left: Professional founder portrait. Right: Large quote text in Poppins with a gold (#F2C14E) accent line or quote icon."
+    },
+    "partner_marquee": {
+      "layout": "Continuous horizontal scroll",
+      "details": "Use react-fast-marquee. Text-based or logo-based, grayscale logos fading in, highly spaced (gap-24)."
+    }
+  },
+  "admin_panel": {
+    "route": "/admin",
+    "layout": "Sidebar + Main Content Area",
+    "sidebar": "bg-[#12233D] text-white w-64 min-h-screen p-6",
+    "main_content": "bg-[#F7FAFD] flex-1 min-h-screen p-8",
+    "components_used": "Shadcn/UI Tables, Forms, Dialogs, Cards. Data tables for contact inquiries, forms for editing homepage content."
+  },
+  "motion_and_interactions": {
+    "hover": "Subtle -translate-y-1 and shadow-lg on cards. Button backgrounds darken.",
+    "entrance": "Fade-in-up staggered animations for lists and grid items using framer-motion.",
+    "accessibility": "Ensure focus states ring-2 ring-[#0738A6] on interactive elements. Respect prefers-reduced-motion."
+  },
+  "media": {
+    "logos": {
+      "primary": "/brand/shobha-logo.svg"
+    },
+    "images": {
+      "hero_corporate": "https://images.pexels.com/photos/34746047/pexels-photo-34746047.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "hero_pharma": "https://static.prod-images.emergentagent.com/jobs/b2159a50-3fe2-420f-a83e-1d507fafacc1/images/796533f22f0ba13e33cada0f59ba6ef012dd3d34f76160115df719c611ee1741.png",
+      "hero_nutra": "https://images.pexels.com/photos/3850758/pexels-photo-3850758.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "global_map": "https://static.prod-images.emergentagent.com/jobs/b2159a50-3fe2-420f-a83e-1d507fafacc1/images/43031ff12918dedb46c064bf7789a381df6a01bac42f55087c4e2d4f8cc8540b.png",
+      "inhaler_product": "https://static.prod-images.emergentagent.com/jobs/b2159a50-3fe2-420f-a83e-1d507fafacc1/images/a2e3c305766cca8a99b9710da04e5d58125f144931718564389b15be0cad4498.png",
+      "lab_scientist": "https://images.pexels.com/photos/15831822/pexels-photo-15831822.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "founder_portrait": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBjb3Jwb3JhdGUlMjBidXNpbmVzc21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc3OTc4OTgyNHww&ixlib=rb-4.1.0&q=85"
+    },
+    "icons_library": "lucide-react"
+  },
+  "testing_attributes": {
+    "rule": "All interactive and key informational elements MUST include a data-testid attribute in kebab-case format."
+  }
+}

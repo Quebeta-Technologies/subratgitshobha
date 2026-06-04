@@ -1,0 +1,5 @@
+/* Component-specific styles (App.js) — minimal, since most styling lives in tailwind + index.css */
+.App {
+  min-height: 100vh;
+  background: #ffffff;
+}
