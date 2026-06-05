@@ -15,6 +15,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminInquiries from "./pages/admin/AdminInquiries";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminContent from "./pages/admin/AdminContent";
+import GlobalPresence from "./pages/GlobalPresence";
 
 function App() {
   return (
@@ -41,12 +42,14 @@ function App() {
               path="/pharmaceuticals/:slug"
               element={<PharmaCategoryPage />}
             />
+            <Route path="/global-presence" element={<GlobalPresence />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="inquiries" element={<AdminInquiries />} />
               <Route path="products" element={<AdminProducts />} />
               <Route path="content" element={<AdminContent />} />
+
             </Route>
           </Routes>
         </BrowserRouter>

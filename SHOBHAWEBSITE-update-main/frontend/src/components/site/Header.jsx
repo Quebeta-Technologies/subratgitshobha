@@ -61,7 +61,7 @@ const navLinks = [
     href: "/#nutraceuticals",
   },
   { label: "Why Shobha", href: "/why-shobha" },
-  { label: "Global Presence", href: "/#global" },
+  { label: "Global Presence", href: "/global-presence" },
   { label: "Contact Us", href: "/contact" },
 ];
 
