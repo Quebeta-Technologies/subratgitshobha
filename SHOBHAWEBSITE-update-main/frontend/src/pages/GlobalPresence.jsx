@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -23,6 +23,7 @@ import {
 import Header from "../components/site/Header";
 import Footer from "../components/site/Footer";
 import WhatsAppFloat from "../components/site/WhatsAppFloat";
+
 
 /* =====================================================
    PRESENCE DATA — edit countries / status here
@@ -148,267 +149,247 @@ function GlobalHero() {
    2. WORLD PRESENCE MAP  — the new section
    ====================================================== */
 function GlobalWorldMap() {
+  const canvasRef = useRef(null);
+  const rotRef = useRef(35);
+  const animRef = useRef(null);
+
+  const GLOBE_DATA = {
+    AE: { lat: 25.2, lng: 55.3 }, SA: { lat: 23.9, lng: 45.1 },
+    IQ: { lat: 33.2, lng: 43.7 }, GH: { lat: 7.9,  lng: -1.0  },
+    NG: { lat: 9.1,  lng: 8.7  }, KE: { lat: -0.2,  lng: 37.9 },
+    ZA: { lat: -30.6,lng: 22.9 }, KH: { lat: 12.6,  lng: 104.9},
+    VN: { lat: 14.1, lng: 108.3}, PH: { lat: 12.9,  lng: 121.8},
+    MM: { lat: 17.1, lng: 96.7 },
+  };
+  const globeCountries = COUNTRIES.map(c => ({ ...c, ...(GLOBE_DATA[c.code] || {}) }));
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const SIZE = 460;
+    canvas.width = SIZE * dpr;
+    canvas.height = SIZE * dpr;
+    canvas.style.width  = SIZE + "px";
+    canvas.style.height = SIZE + "px";
+
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+    const R = SIZE * 0.40;
+    const cx = SIZE / 2;
+    const cy = SIZE / 2;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, SIZE, SIZE);
+      const rotRad = rotRef.current * Math.PI / 180;
+
+      // Atmosphere glow
+      const atm = ctx.createRadialGradient(cx, cy, R * 0.85, cx, cy, R * 1.2);
+      atm.addColorStop(0,   "rgba(7,56,166,0)");
+      atm.addColorStop(0.5, "rgba(98,199,245,0.07)");
+      atm.addColorStop(1,   "rgba(7,56,166,0)");
+      ctx.beginPath(); ctx.arc(cx, cy, R * 1.2, 0, Math.PI * 2);
+      ctx.fillStyle = atm; ctx.fill();
+
+      // Sphere body
+      const sph = ctx.createRadialGradient(cx - R*.3, cy - R*.3, R*.05, cx, cy, R);
+      sph.addColorStop(0,   "rgba(7,56,166,0.22)");
+      sph.addColorStop(0.5, "rgba(7,56,166,0.09)");
+      sph.addColorStop(1,   "rgba(7,56,166,0.02)");
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.fillStyle = sph; ctx.fill();
+
+      // Sphere border
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(7,56,166,0.28)";
+      ctx.lineWidth = 1.5; ctx.stroke();
+
+      // Latitude lines
+      [-60,-30,0,30,60].forEach(lat => {
+        const phi = lat * Math.PI / 180;
+        const rL = R * Math.cos(phi);
+        const yL = cy - R * Math.sin(phi);
+        ctx.beginPath();
+        ctx.ellipse(cx, yL, rL, rL * 0.1, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(98,199,245,0.13)";
+        ctx.lineWidth = 0.5; ctx.stroke();
+      });
+
+      // Longitude lines
+      for (let lng = 0; lng < 360; lng += 30) {
+        const theta = lng * Math.PI / 180 + rotRad;
+        const cosT = Math.cos(theta);
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, Math.abs(R * cosT), R, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = cosT > 0
+          ? "rgba(98,199,245,0.20)"
+          : "rgba(98,199,245,0.06)";
+        ctx.lineWidth = 0.5; ctx.stroke();
+      }
+
+      // Project countries
+      const proj = globeCountries
+        .filter(c => c.lat !== undefined)
+        .map(c => {
+          const phi   = c.lat * Math.PI / 180;
+          const theta = c.lng * Math.PI / 180 + rotRad;
+          const x3 = R * Math.cos(phi) * Math.sin(theta);
+          const y3 = R * Math.sin(phi);
+          const z3 = R * Math.cos(phi) * Math.cos(theta);
+          return { ...c, sx: cx + x3, sy: cy - y3, z3, visible: z3 > -R * 0.05, depth: z3 / R };
+        })
+        .sort((a, b) => a.z3 - b.z3);
+
+      // Connection lines from HQ
+      const hq = proj.find(c => c.status === "HQ" && c.visible && c.depth > 0);
+      if (hq) {
+        proj.forEach(c => {
+          if (!c.visible || c.status === "HQ" || c.depth < 0.05) return;
+          ctx.beginPath();
+          ctx.moveTo(hq.sx, hq.sy);
+          ctx.lineTo(c.sx, c.sy);
+          ctx.strokeStyle = STATUS_COLORS[c.status].dot + "55";
+          ctx.lineWidth = 0.9;
+          ctx.setLineDash([4, 4]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        });
+      }
+
+      // Markers
+      proj.forEach(c => {
+        if (!c.visible || c.depth < -0.15) return;
+        const col   = STATUS_COLORS[c.status];
+        const isHQ  = c.status === "HQ";
+        const dotR  = isHQ ? 8 : 5;
+        const alpha = Math.max(0.25, 0.4 + c.depth * 0.6);
+        ctx.globalAlpha = alpha;
+
+        // Glow
+        const glow = ctx.createRadialGradient(c.sx, c.sy, 0, c.sx, c.sy, dotR * 3.5);
+        glow.addColorStop(0, col.dot + "88");
+        glow.addColorStop(1, col.dot + "00");
+        ctx.beginPath(); ctx.arc(c.sx, c.sy, dotR * 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = glow; ctx.fill();
+
+        // Dot
+        ctx.beginPath(); ctx.arc(c.sx, c.sy, dotR, 0, Math.PI * 2);
+        ctx.fillStyle   = col.dot; ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,0.9)";
+        ctx.lineWidth   = 1.5; ctx.stroke();
+
+        ctx.globalAlpha = 1;
+      });
+
+      // Specular highlight
+      const spec = ctx.createRadialGradient(cx - R*.35, cy - R*.35, 0, cx - R*.35, cy - R*.35, R * .55);
+      spec.addColorStop(0, "rgba(255,255,255,0.13)");
+      spec.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.fillStyle = spec; ctx.fill();
+
+      rotRef.current += 0.12;
+      animRef.current = requestAnimationFrame(draw);
+    };
+
+    draw();
+    return () => { if (animRef.current) cancelAnimationFrame(animRef.current); };
+  }, []);
+
   const regions = [
-    { name: "Africa", color: "#9DCD4A", icon: "🌍" },
+    { name: "Africa",      color: "#9DCD4A", icon: "🌍" },
     { name: "Middle East", color: "#F2C14E", icon: "🕌" },
-    { name: "Asia", color: "#62C7F5", icon: "🌏" },
+    { name: "Asia",        color: "#62C7F5", icon: "🌏" },
   ];
 
   return (
     <section
       data-testid="global-world-map"
-      className="py-16 md:py-24 relative overflow-hidden text-white"
-      style={{ background: "linear-gradient(135deg, #0a1929 0%, #12233D 45%, #0738A6 100%)" }}
+      className="py-16 md:py-24 bg-[#F7FAFD] relative overflow-hidden"
     >
-      <div className="absolute inset-0 dot-grid opacity-15 pointer-events-none" />
-      <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] rounded-full bg-[#62C7F5]/10 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-40 right-1/4 w-[500px] h-[500px] rounded-full bg-[#F2C14E]/8 blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 subtle-grid opacity-40 pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0738A6]/[0.04] blur-3xl pointer-events-none" />
 
       <div className="container-x relative">
-        <div className="max-w-3xl mx-auto text-center mb-12 md:mb-14">
-          <span className="inline-block text-[10px] tracking-[0.32em] uppercase font-bold text-[#62C7F5] mb-3">
-            Where in the World We Operate
-          </span>
-          <h2 className="font-display font-semibold text-white text-2xl sm:text-3xl lg:text-[40px] tracking-tight leading-[1.1]">
-            A Map of{" "}
-            <span className="bg-gradient-to-r from-[#F2C14E] via-[#9DCD4A] to-[#62C7F5] bg-clip-text text-transparent">
-              Our Reach
-            </span>
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <span className="eyebrow">Where in the World We Operate</span>
+          <h2 className="mt-4 font-display font-semibold text-[#12233D] text-2xl sm:text-3xl lg:text-[40px] tracking-tight leading-[1.1]">
+            A Map of <span className="text-[#0738A6]">Our Reach</span>
           </h2>
-          <p className="mt-5 text-white/70 text-[15.5px] leading-relaxed">
-            Click any country to learn more. Active markets in green. Markets in expansion in blue.
-            Target markets in red. Headquarters in gold.
+          <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
+            Our Dubai headquarters connects active markets, expanding regions, and target countries across three continents.
           </p>
         </div>
 
-        {/* THE MAP PANEL */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7 }}
-          className="relative max-w-6xl mx-auto rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.35)]"
-          style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))" }}
-        >
-          {/* DOT GRID WORLD BACKDROP */}
-          <div className="relative aspect-[2/1] w-full overflow-hidden">
-            {/* SVG simplified world */}
-            <svg
-              viewBox="0 0 100 50"
-              preserveAspectRatio="xMidYMid meet"
-              className="absolute inset-0 w-full h-full opacity-40"
-            >
-              {/* Latitude lines */}
-              {[10, 20, 25, 30, 40].map((y) => (
-                <line key={y} x1="0" y1={y} x2="100" y2={y} stroke="rgba(255,255,255,0.08)" strokeWidth="0.1" />
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          {/* Globe */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col items-center"
+          >
+            <canvas
+              ref={canvasRef}
+              className="drop-shadow-[0_20px_60px_rgba(7,56,166,0.18)]"
+            />
+            <div className="mt-6 flex flex-wrap justify-center gap-5">
+              {Object.entries(STATUS_COLORS).map(([label, c]) => (
+                <div key={label} className="flex items-center gap-2 text-[12px] font-semibold text-[#4B5563]">
+                  <span className="w-3 h-3 rounded-full border-2 border-white shadow-sm" style={{ background: c.dot }} />
+                  {label}
+                </div>
               ))}
-              {/* Longitude lines */}
-              {[20, 40, 60, 80].map((x) => (
-                <line key={x} x1={x} y1="0" x2={x} y2="50" stroke="rgba(255,255,255,0.08)" strokeWidth="0.1" />
-              ))}
-              {/* Continent dot clusters */}
-              {/* Africa */}
-              {Array.from({ length: 60 }).map((_, i) => {
-                const cx = 26 + (Math.random() - 0.5) * 12;
-                const cy = 28 + (Math.random() - 0.5) * 18;
-                return <circle key={`af-${i}`} cx={cx} cy={cy} r="0.45" fill="rgba(255,255,255,0.32)" />;
-              })}
-              {/* Europe / Middle East */}
-              {Array.from({ length: 45 }).map((_, i) => {
-                const cx = 48 + (Math.random() - 0.5) * 14;
-                const cy = 20 + (Math.random() - 0.5) * 12;
-                return <circle key={`me-${i}`} cx={cx} cy={cy} r="0.45" fill="rgba(255,255,255,0.32)" />;
-              })}
-              {/* Asia */}
-              {Array.from({ length: 80 }).map((_, i) => {
-                const cx = 72 + (Math.random() - 0.5) * 22;
-                const cy = 22 + (Math.random() - 0.5) * 14;
-                return <circle key={`as-${i}`} cx={cx} cy={cy} r="0.45" fill="rgba(255,255,255,0.32)" />;
-              })}
-              {/* Americas (decorative — no markers) */}
-              {Array.from({ length: 35 }).map((_, i) => {
-                const cx = 8 + (Math.random() - 0.5) * 8;
-                const cy = 25 + (Math.random() - 0.5) * 20;
-                return <circle key={`am-${i}`} cx={cx} cy={cy} r="0.35" fill="rgba(255,255,255,0.16)" />;
-              })}
-              {/* Oceania */}
-              {Array.from({ length: 18 }).map((_, i) => {
-                const cx = 86 + (Math.random() - 0.5) * 8;
-                const cy = 40 + (Math.random() - 0.5) * 5;
-                return <circle key={`oc-${i}`} cx={cx} cy={cy} r="0.35" fill="rgba(255,255,255,0.16)" />;
-              })}
-            </svg>
+            </div>
+          </motion.div>
 
-            {/* Connection lines from Dubai (HQ) to each market */}
-            <svg
-              viewBox="0 0 100 50"
-              preserveAspectRatio="none"
-              className="absolute inset-0 w-full h-full pointer-events-none"
-            >
-              {COUNTRIES.filter((c) => c.status !== "HQ").map((c) => {
-                const hq = COUNTRIES.find((x) => x.status === "HQ");
-                if (!hq) return null;
-                return (
-                  <line
-                    key={`line-${c.code}`}
-                    x1={hq.x}
-                    y1={(hq.y * 50) / 100}
-                    x2={c.x}
-                    y2={(c.y * 50) / 100}
-                    stroke={STATUS_COLORS[c.status].dot}
-                    strokeWidth="0.15"
-                    strokeOpacity="0.4"
-                    strokeDasharray="0.8 0.6"
-                  />
-                );
-              })}
-            </svg>
-
-            {/* COUNTRY MARKERS */}
-            {COUNTRIES.map((c, i) => {
-              const colors = STATUS_COLORS[c.status];
-              const isHQ = c.status === "HQ";
+          {/* Region cards stacked on right */}
+          <div className="space-y-4">
+            {regions.map((r, i) => {
+              const list = COUNTRIES.filter(c => c.region === r.name);
               return (
                 <motion.div
-                  key={c.code}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  key={r.name}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 + i * 0.05 }}
-                  className="absolute group cursor-pointer"
-                  style={{
-                    left: `${c.x}%`,
-                    top: `${c.y}%`,
-                    transform: "translate(-50%, -50%)",
-                  }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="bg-white border border-[#E9EEF5] rounded-2xl p-5 card-hover"
                 >
-                  {/* Pulse ring */}
-                  <span
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full animate-ping"
-                    style={{
-                      width: isHQ ? 28 : 18,
-                      height: isHQ ? 28 : 18,
-                      background: colors.ring,
-                      animationDuration: "2.5s",
-                    }}
-                  />
-                  {/* Main dot */}
-                  <span
-                    className="relative block rounded-full border-2 border-white/90 shadow-[0_4px_14px_rgba(0,0,0,0.4)]"
-                    style={{
-                      width: isHQ ? 16 : 11,
-                      height: isHQ ? 16 : 11,
-                      background: colors.dot,
-                    }}
-                  />
-                  {/* Label */}
-                  <div className="absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap pointer-events-none">
-                    <div
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 text-[10.5px] font-semibold text-white opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <span className="text-[12px]">{c.flag}</span>
-                      <span>{c.name}</span>
-                      <span
-                        className="px-1.5 py-0.5 rounded-full text-[8.5px] font-bold tracking-wider uppercase"
-                        style={{ background: colors.ring, color: colors.text }}
-                      >
-                        {c.status}
-                      </span>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
+                      style={{ background: r.color + "18", border: `1px solid ${r.color}44` }}>
+                      {r.icon}
                     </div>
+                    <div>
+                      <div className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: r.color }}>Region</div>
+                      <div className="font-display font-semibold text-[#12233D] text-[17px]">{r.name}</div>
+                    </div>
+                    <span className="ml-auto text-[11px] font-bold text-[#9CA3AF]">{list.length} markets</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {list.map(c => {
+                      const col = STATUS_COLORS[c.status];
+                      return (
+                        <div key={c.code}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium text-[#12233D] border"
+                          style={{ borderColor: col.dot + "44", background: col.ring }}
+                        >
+                          <span>{c.flag}</span>
+                          <span>{c.name}</span>
+                          <span className="text-[9px] font-bold tracking-wider uppercase ml-0.5" style={{ color: col.dot }}>
+                            {c.status}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </motion.div>
               );
             })}
-
-            {/* Floating "Dubai HQ" callout */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="absolute top-3 right-3 md:top-5 md:right-5 bg-black/50 backdrop-blur-md border border-[#F2C14E]/40 rounded-xl px-3 py-2 flex items-center gap-2"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#F2C14E] animate-pulse" />
-              <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#F2C14E]">
-                Dubai HQ · Live
-              </span>
-            </motion.div>
           </div>
-
-          {/* LEGEND STRIP */}
-          <div className="border-t border-white/10 bg-black/30 backdrop-blur-sm px-5 md:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-[11px] font-semibold">
-              {Object.entries(STATUS_COLORS).map(([label, c]) => (
-                <div key={label} className="flex items-center gap-2">
-                  <span
-                    className="w-2.5 h-2.5 rounded-full border border-white/40"
-                    style={{ background: c.dot }}
-                  />
-                  <span className="text-white/85">{label}</span>
-                </div>
-              ))}
-            </div>
-            <div className="text-[11px] text-white/60">
-              Hover or tap a marker for country details
-            </div>
-          </div>
-        </motion.div>
-
-        {/* REGION CARDS UNDER MAP */}
-        <div className="grid md:grid-cols-3 gap-5 mt-12">
-          {regions.map((r, i) => {
-            const list = COUNTRIES.filter((c) => c.region === r.name);
-            return (
-              <motion.div
-                key={r.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="bg-white/[0.04] backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/[0.07] transition-colors"
-              >
-                <div className="flex items-center gap-3 mb-5">
-                  <div
-                    className="w-11 h-11 rounded-2xl flex items-center justify-center text-2xl shrink-0"
-                    style={{ background: `${r.color}22`, border: `1px solid ${r.color}55` }}
-                  >
-                    {r.icon}
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: r.color }}>
-                      Region
-                    </div>
-                    <div className="font-display font-semibold text-white text-lg">{r.name}</div>
-                  </div>
-                  <span className="ml-auto text-white/40 text-[12px] font-semibold">
-                    {list.length}
-                  </span>
-                </div>
-                <div className="space-y-2">
-                  {list.map((c) => {
-                    const colors = STATUS_COLORS[c.status];
-                    return (
-                      <div
-                        key={c.code}
-                        className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-white/[0.04] border border-white/5"
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <span className="text-[16px]">{c.flag}</span>
-                          <span className="text-white/90 text-[13px] font-medium">{c.name}</span>
-                        </div>
-                        <span
-                          className="text-[9.5px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full"
-                          style={{ background: colors.ring, color: colors.text }}
-                        >
-                          {c.status}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            );
-          })}
         </div>
       </div>
     </section>
