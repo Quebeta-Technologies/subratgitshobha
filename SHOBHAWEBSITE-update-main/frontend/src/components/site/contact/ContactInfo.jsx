@@ -152,7 +152,7 @@ export default function ContactInfo() {
                 </a>
 
                 <a
-                  href="mailto:prarthana.m@outlook.com"
+                  href="mailto:admin@shobha-healthcare.com"
                   className="flex items-start gap-3 group"
                 >
                   <div className="w-9 h-9 rounded-lg bg-[#E84D6C]/10 flex items-center justify-center shrink-0">
@@ -163,7 +163,7 @@ export default function ContactInfo() {
                       Email
                     </div>
                     <div className="text-[#12233D] font-display font-medium text-[15px] group-hover:text-[#E84D6C] transition-colors break-all">
-                      prarthana.m@outlook.com
+                      admin@shobha-healthcare.com
                     </div>
                   </div>
                 </a>
