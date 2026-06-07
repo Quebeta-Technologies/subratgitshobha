@@ -100,158 +100,170 @@ function GlobalHero() {
   );
 }
 
-/* ── WORLD MAP ────────────────────────────────────── */
+/* ── WORLD MAP ─────────────────────────────────────── */
 function GlobalWorldMap() {
   const [tooltip, setTooltip] = useState(null);
 
+  /* Political-map colour palette — varied so countries look distinct */
+  const PALETTE = [
+    "#F5D778","#A8D898","#F5A87E","#90C4E0",
+    "#C8A8D8","#88D0B4","#F0C898","#A0D4A8",
+    "#E8B890","#98C8D8","#D0A8C8","#B0D8A0",
+    "#F5C878","#A8C8D8","#F0B8A8","#90D4B8",
+  ];
+
+  const getCountryColor = (isoId) =>
+    PALETTE[Math.abs(parseInt(isoId || "0")) % PALETTE.length];
+
+  /* Shobha status colours — solid, clearly distinct from palette */
+  const STATUS_MAP = {
+    HQ:        { dot:"#E6A800", fill:"#FFD740", ring:"rgba(242,193,78,0.25)"  },
+    Active:    { dot:"#5AA000", fill:"#8FD14F", ring:"rgba(157,205,74,0.25)"  },
+    Expanding: { dot:"#0080C0", fill:"#62C7F5", ring:"rgba(98,199,245,0.25)"  },
+    Target:    { dot:"#C8003C", fill:"#FF6680", ring:"rgba(232,77,108,0.25)"  },
+  };
+
+  /* Numeric ISO → status */
+  const ISO_STATUS_LOCAL = {
+    "784":"HQ","682":"Active","368":"Target",
+    "288":"Active","566":"Expanding","404":"Expanding","710":"Target",
+    "116":"Expanding","704":"Active","608":"Target","104":"Target",
+  };
+
   const regions = [
-    { name:"Africa",      color:"#9DCD4A", icon:"🌍" },
-    { name:"Middle East", color:"#F2C14E", icon:"🕌" },
-    { name:"Asia",        color:"#62C7F5", icon:"🌏" },
+    { name:"Africa",      color:"#5AA000", icon:"🌍" },
+    { name:"Middle East", color:"#E6A800", icon:"🕌" },
+    { name:"Asia",        color:"#0080C0", icon:"🌏" },
   ];
 
   return (
-    <section data-testid="global-world-map" className="relative overflow-hidden">
+    <section data-testid="global-world-map" className="relative overflow-hidden bg-white">
 
-      {/* dark map panel */}
-      <div style={{ background:"linear-gradient(160deg,#06111f 0%,#0d2440 60%,#0a1929 100%)" }}>
-        {/* header */}
-        <div className="container-x pt-14 pb-6 text-center">
-          <span className="inline-block text-[10px] tracking-[0.32em] uppercase font-bold text-[#62C7F5] mb-3">
-            Where in the World We Operate
-          </span>
-          <h2 className="font-display font-semibold text-white text-2xl sm:text-3xl lg:text-[40px] tracking-tight leading-[1.1]">
-            A Map of{" "}
-            <span className="bg-gradient-to-r from-[#F2C14E] via-[#9DCD4A] to-[#62C7F5] bg-clip-text text-transparent">
-              Our Reach
-            </span>
-          </h2>
-          <p className="mt-4 text-white/60 text-[14.5px] max-w-xl mx-auto leading-relaxed">
-            Hover any marker to see country details. Highlighted countries show our market status.
-          </p>
-        </div>
+      {/* Header */}
+      <div className="container-x pt-14 pb-8 text-center mx-auto">
+        <span className="eyebrow">Where in the World We Operate</span>
+        <h2 className="mt-4 font-display font-semibold text-[#12233D] text-2xl sm:text-3xl lg:text-[40px] tracking-tight leading-[1.1]">
+          A Map of <span className="text-[#0738A6]">Our Reach</span>
+        </h2>
+        <p className="mt-4 text-[#4B5563] text-[14.5px] max-w-xl mx-auto leading-relaxed">
+          Highlighted countries show our market presence. Hover any marker for details.
+        </p>
+      </div>
 
-        {/* MAP */}
-        <div className="relative w-full">
-          <ComposableMap
-            projection="geoNaturalEarth1"
-            projectionConfig={{ scale: 153, center: [25, 8] }}
-            style={{ width:"100%", height:"auto" }}
-            viewBox="0 0 960 500"
-          >
-            <Geographies geography={GEO_URL}>
-              {({ geographies }) =>
-                geographies.map(geo => {
-                  const status = ISO_STATUS[String(geo.id)];
-                  const col    = status ? STATUS_COLORS[status] : null;
-                  return (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill={status ? col.fill : "#1a3a5c"}
-                      stroke="#0b1f35"
-                      strokeWidth={0.4}
-                      style={{
-                        default: { outline:"none", transition:"fill 0.2s" },
-                        hover:   {
-                          fill:    status ? col.dot + "cc" : "#1e4470",
-                          outline: "none",
-                          filter:  status ? `drop-shadow(0 0 6px ${col.dot}88)` : "none",
-                        },
-                        pressed: { outline:"none" },
-                      }}
-                    />
-                  );
-                })
-              }
-            </Geographies>
-
-            {/* markers */}
-            {COUNTRIES.map(c => {
-              const col  = STATUS_COLORS[c.status];
-              const isHQ = c.status === "HQ";
-              const r    = isHQ ? 7 : 4.5;
-              return (
-                <Marker
-                  key={c.code}
-                  coordinates={[c.lng, c.lat]}
-                  onMouseEnter={() => setTooltip(c)}
-                  onMouseLeave={() => setTooltip(null)}
-                >
-                  {/* outer pulse ring */}
-                  <circle r={r * 3} fill={col.dot} opacity="0">
-                    <animate attributeName="r"       from={r} to={r * 4.5} dur="2.4s" begin="0s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" from="0.55" to="0"    dur="2.4s" begin="0s" repeatCount="indefinite" />
-                  </circle>
-                  {/* inner pulse ring */}
-                  <circle r={r * 1.8} fill={col.dot} opacity="0">
-                    <animate attributeName="r"       from={r} to={r * 2.8} dur="2.4s" begin="0.6s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" from="0.4" to="0"     dur="2.4s" begin="0.6s" repeatCount="indefinite" />
-                  </circle>
-                  {/* main dot */}
-                  <circle
-                    r={r}
-                    fill={col.dot}
-                    stroke="white"
-                    strokeWidth={isHQ ? 2 : 1.5}
-                    style={{ cursor:"pointer", filter:`drop-shadow(0 0 4px ${col.dot})` }}
+      {/* MAP — ocean blue background, full-width centered */}
+      <div className="relative w-full overflow-hidden mx-auto" style={{ background:"#A8D0E8" }}>
+        <ComposableMap
+          width={960}
+          height={480}
+          projection="geoMercator"
+          projectionConfig={{ scale: 145, center: [10, 10] }}
+          style={{ width:"100%", height:"auto", display:"block" }}
+        >
+          <Geographies geography="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json">
+            {({ geographies }) =>
+              geographies.map(geo => {
+                const status = ISO_STATUS_LOCAL[String(geo.id)];
+                const sc = status ? STATUS_MAP[status] : null;
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    fill={status ? sc.fill : getCountryColor(geo.id)}
+                    stroke="#FFFFFF"
+                    strokeWidth={0.5}
+                    style={{
+                      default: { outline:"none", transition:"all 0.15s" },
+                      hover: {
+                        fill:    status ? sc.dot : getCountryColor(geo.id),
+                        outline: "none",
+                        filter:  status ? `drop-shadow(0 0 8px ${sc.dot}aa)` : "brightness(0.9)",
+                      },
+                      pressed: { outline:"none" },
+                    }}
                   />
-                  {/* HQ label */}
-                  {isHQ && (
-                    <text
-                      y={-r - 4}
-                      textAnchor="middle"
-                      fill="#F2C14E"
-                      fontSize="5"
-                      fontWeight="700"
-                      fontFamily="Inter, sans-serif"
-                      letterSpacing="0.8"
-                    >
-                      HQ
-                    </text>
-                  )}
-                </Marker>
-              );
-            })}
-          </ComposableMap>
+                );
+              })
+            }
+          </Geographies>
 
-          {/* tooltip */}
-          {tooltip && (
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-none z-10
-              bg-[#0d2440]/90 backdrop-blur-md border border-white/15 rounded-2xl
-              px-5 py-3 flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
-              <span className="text-2xl">{tooltip.flag}</span>
-              <div>
-                <div className="text-white font-display font-semibold text-[15px]">{tooltip.name}</div>
-                <div className="text-[10px] uppercase tracking-widest font-bold mt-0.5"
-                  style={{ color: STATUS_COLORS[tooltip.status].dot }}>
-                  {tooltip.region} · {tooltip.status}
-                </div>
+          {/* Markers */}
+          {COUNTRIES.map(c => {
+            const sc   = STATUS_MAP[c.status];
+            const isHQ = c.status === "HQ";
+            const r    = isHQ ? 8 : 5.5;
+            return (
+              <Marker
+                key={c.code}
+                coordinates={[c.lng, c.lat]}
+                onMouseEnter={() => setTooltip(c)}
+                onMouseLeave={() => setTooltip(null)}
+              >
+                {/* pulse rings */}
+                <circle r={r} fill={sc.dot} opacity="0">
+                  <animate attributeName="r"       from={r}     to={r * 5}   dur="2.5s" begin="0s"   repeatCount="indefinite" />
+                  <animate attributeName="opacity" from="0.55"  to="0"       dur="2.5s" begin="0s"   repeatCount="indefinite" />
+                </circle>
+                <circle r={r} fill={sc.dot} opacity="0">
+                  <animate attributeName="r"       from={r}     to={r * 3}   dur="2.5s" begin="0.8s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" from="0.40"  to="0"       dur="2.5s" begin="0.8s" repeatCount="indefinite" />
+                </circle>
+                {/* main dot */}
+                <circle
+                  r={r}
+                  fill={sc.dot}
+                  stroke="#FFFFFF"
+                  strokeWidth={isHQ ? 2.5 : 2}
+                  style={{ cursor:"pointer", filter:`drop-shadow(0 2px 5px ${sc.dot}bb)` }}
+                />
+                {/* HQ label */}
+                {isHQ && (
+                  <text y={-r - 5} textAnchor="middle"
+                    fill="#12233D" fontSize="6.5" fontWeight="800"
+                    fontFamily="Inter, sans-serif" letterSpacing="0.5">
+                    HQ
+                  </text>
+                )}
+              </Marker>
+            );
+          })}
+        </ComposableMap>
+
+        {/* Tooltip — light style */}
+        {tooltip && (
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 pointer-events-none z-20
+            bg-white/95 backdrop-blur border border-[#E9EEF5] rounded-2xl
+            px-5 py-3 flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.15)]">
+            <span className="text-2xl">{tooltip.flag}</span>
+            <div>
+              <div className="text-[#12233D] font-display font-semibold text-[15px]">{tooltip.name}</div>
+              <div className="text-[10px] uppercase tracking-widest font-bold mt-0.5"
+                style={{ color: STATUS_MAP[tooltip.status].dot }}>
+                {tooltip.region} · {tooltip.status}
               </div>
             </div>
-          )}
-        </div>
-
-        {/* legend */}
-        <div className="border-t border-white/10">
-          <div className="container-x py-5 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap gap-6">
-              {Object.entries(STATUS_COLORS).map(([label, c]) => (
-                <div key={label} className="flex items-center gap-2 text-[12px] font-semibold text-white/70">
-                  <span className="w-3 h-3 rounded-full border-2 border-white/30 shadow-sm"
-                    style={{ background: c.dot, boxShadow:`0 0 6px ${c.dot}88` }} />
-                  {label}
-                </div>
-              ))}
-            </div>
-            <span className="text-white/35 text-[11px] hidden sm:block">Hover a marker for details</span>
           </div>
+        )}
+      </div>
+
+      {/* Legend */}
+      <div className="bg-white border-y border-[#E9EEF5]">
+        <div className="container-x mx-auto py-4 flex flex-wrap items-center justify-center gap-6 sm:justify-between">
+          <div className="flex flex-wrap justify-center gap-5">
+            {Object.entries(STATUS_MAP).map(([label, c]) => (
+              <div key={label} className="flex items-center gap-2 text-[12px] font-semibold text-[#4B5563]">
+                <span className="w-3.5 h-3.5 rounded-full border-2 border-white shadow"
+                  style={{ background: c.dot }} />
+                {label}
+              </div>
+            ))}
+          </div>
+          <span className="text-[#9CA3AF] text-[11px] hidden sm:block">Hover a marker for country details</span>
         </div>
       </div>
 
-      {/* region cards — light bg */}
+      {/* Region cards */}
       <div className="bg-[#F7FAFD] py-12">
-        <div className="container-x">
+        <div className="container-x mx-auto">
           <div className="grid md:grid-cols-3 gap-5">
             {regions.map((r, i) => {
               const list = COUNTRIES.filter(c => c.region === r.name);
@@ -261,7 +273,7 @@ function GlobalWorldMap() {
                   viewport={{ once:true }} transition={{ duration:0.5, delay: i * 0.1 }}
                   className="bg-white border border-[#E9EEF5] rounded-2xl p-5 card-hover">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
                       style={{ background: r.color + "18", border:`1px solid ${r.color}44` }}>
                       {r.icon}
                     </div>
@@ -273,16 +285,15 @@ function GlobalWorldMap() {
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {list.map(c => {
-                      const col = STATUS_COLORS[c.status];
+                      const sc = STATUS_MAP[c.status];
                       return (
                         <div key={c.code}
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium text-[#12233D] border"
-                          style={{ borderColor: col.dot + "44", background: col.ring }}>
+                          style={{ borderColor: sc.dot + "55", background: sc.ring }}>
                           <span>{c.flag}</span>
                           <span>{c.name}</span>
-                          <span className="text-[9px] font-bold tracking-wider uppercase ml-0.5" style={{ color:col.dot }}>
-                            {c.status}
-                          </span>
+                          <span className="text-[9px] font-bold tracking-wider uppercase ml-0.5"
+                            style={{ color: sc.dot }}>{c.status}</span>
                         </div>
                       );
                     })}
