@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import {
   ChevronRight, Globe2, MapPin, Factory, Truck, Heart,
   Building2, ArrowUpRight, Download, Users, TrendingUp,
@@ -10,32 +11,42 @@ import Header from "../components/site/Header";
 import Footer from "../components/site/Footer";
 import WhatsAppFloat from "../components/site/WhatsAppFloat";
 
+/* ── DATA ─────────────────────────────────────────── */
 const COUNTRIES = [
-  { code: "AE", flag: "🇦🇪", name: "UAE",          region: "Middle East", status: "HQ",       lat: 25.2,  lng: 55.3  },
-  { code: "SA", flag: "🇸🇦", name: "Saudi Arabia", region: "Middle East", status: "Active",   lat: 23.9,  lng: 45.1  },
-  { code: "IQ", flag: "🇮🇶", name: "Iraq",         region: "Middle East", status: "Target",   lat: 33.2,  lng: 43.7  },
-  { code: "GH", flag: "🇬🇭", name: "Ghana",        region: "Africa",      status: "Active",   lat: 7.9,   lng: -1.0  },
-  { code: "NG", flag: "🇳🇬", name: "Nigeria",      region: "Africa",      status: "Expanding",lat: 9.1,   lng: 8.7   },
-  { code: "KE", flag: "🇰🇪", name: "Kenya",        region: "Africa",      status: "Expanding",lat: -0.2,  lng: 37.9  },
-  { code: "ZA", flag: "🇿🇦", name: "South Africa", region: "Africa",      status: "Target",   lat: -30.6, lng: 22.9  },
-  { code: "KH", flag: "🇰🇭", name: "Cambodia",     region: "Asia",        status: "Expanding",lat: 12.6,  lng: 104.9 },
-  { code: "VN", flag: "🇻🇳", name: "Vietnam",      region: "Asia",        status: "Active",   lat: 14.1,  lng: 108.3 },
-  { code: "PH", flag: "🇵🇭", name: "Philippines",  region: "Asia",        status: "Target",   lat: 12.9,  lng: 121.8 },
-  { code: "MM", flag: "🇲🇲", name: "Myanmar",      region: "Asia",        status: "Target",   lat: 17.1,  lng: 96.7  },
+  { code:"AE", flag:"🇦🇪", name:"UAE",          region:"Middle East", status:"HQ",        lat:25.2,  lng:55.3  },
+  { code:"SA", flag:"🇸🇦", name:"Saudi Arabia", region:"Middle East", status:"Active",    lat:23.9,  lng:45.1  },
+  { code:"IQ", flag:"🇮🇶", name:"Iraq",         region:"Middle East", status:"Target",    lat:33.2,  lng:43.7  },
+  { code:"GH", flag:"🇬🇭", name:"Ghana",        region:"Africa",      status:"Active",    lat:7.9,   lng:-1.0  },
+  { code:"NG", flag:"🇳🇬", name:"Nigeria",      region:"Africa",      status:"Expanding", lat:9.1,   lng:8.7   },
+  { code:"KE", flag:"🇰🇪", name:"Kenya",        region:"Africa",      status:"Expanding", lat:-0.2,  lng:37.9  },
+  { code:"ZA", flag:"🇿🇦", name:"South Africa", region:"Africa",      status:"Target",    lat:-30.6, lng:22.9  },
+  { code:"KH", flag:"🇰🇭", name:"Cambodia",     region:"Asia",        status:"Expanding", lat:12.6,  lng:104.9 },
+  { code:"VN", flag:"🇻🇳", name:"Vietnam",      region:"Asia",        status:"Active",    lat:14.1,  lng:108.3 },
+  { code:"PH", flag:"🇵🇭", name:"Philippines",  region:"Asia",        status:"Target",    lat:12.9,  lng:121.8 },
+  { code:"MM", flag:"🇲🇲", name:"Myanmar",      region:"Asia",        status:"Target",    lat:17.1,  lng:96.7  },
 ];
 
-const STATUS_COLORS = {
-  HQ:       { dot: "#F2C14E", ring: "rgba(242,193,78,0.30)",  text: "#F2C14E" },
-  Active:   { dot: "#9DCD4A", ring: "rgba(157,205,74,0.30)",  text: "#9DCD4A" },
-  Expanding:{ dot: "#62C7F5", ring: "rgba(98,199,245,0.30)",  text: "#62C7F5" },
-  Target:   { dot: "#E84D6C", ring: "rgba(232,77,108,0.30)",  text: "#E84D6C" },
+/* numeric ISO → status  (used to colour country shapes) */
+const ISO_STATUS = {
+  "784":"HQ", "682":"Active", "368":"Target",
+  "288":"Active", "566":"Expanding", "404":"Expanding", "710":"Target",
+  "116":"Expanding", "704":"Active", "608":"Target", "104":"Target",
 };
+
+const STATUS_COLORS = {
+  HQ:        { dot:"#F2C14E", fill:"rgba(242,193,78,0.55)",  ring:"rgba(242,193,78,0.25)",  text:"#F2C14E" },
+  Active:    { dot:"#9DCD4A", fill:"rgba(157,205,74,0.55)",  ring:"rgba(157,205,74,0.25)",  text:"#9DCD4A" },
+  Expanding: { dot:"#62C7F5", fill:"rgba(98,199,245,0.55)",  ring:"rgba(98,199,245,0.25)",  text:"#62C7F5" },
+  Target:    { dot:"#E84D6C", fill:"rgba(232,77,108,0.55)",  ring:"rgba(232,77,108,0.25)",  text:"#E84D6C" },
+};
+
+const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 /* ── HERO ─────────────────────────────────────────── */
 function GlobalHero() {
   return (
     <section className="relative overflow-hidden text-white"
-      style={{ background: "linear-gradient(120deg,#12233D 0%,#0738A6 55%,#0A4A3E 100%)" }}>
+      style={{ background:"linear-gradient(120deg,#12233D 0%,#0738A6 55%,#0A4A3E 100%)" }}>
       <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none" />
       <div className="absolute -top-32 -right-32 w-[520px] h-[520px] rounded-full bg-[#62C7F5]/20 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-40 -left-32 w-[520px] h-[520px] rounded-full bg-[#9DCD4A]/15 blur-3xl pointer-events-none" />
@@ -56,32 +67,30 @@ function GlobalHero() {
             </h1>
             <p className="mt-7 text-white/75 text-[16px] md:text-[17px] leading-relaxed max-w-2xl">
               From a state-of-the-art EU-GMP facility in Gujarat, through a Dubai export hub, into pharmacies
-              and hospitals across Africa, Asia, and the Middle East — every link in our chain is built for the long term.
+              and hospitals across Africa, Asia, and the Middle East.
             </p>
           </motion.div>
           <motion.div initial={{ opacity:0, x:20 }} animate={{ opacity:1, x:0 }}
             transition={{ duration:0.7, delay:0.25 }}
             className="mt-10 lg:mt-0 lg:flex-shrink-0 flex flex-col lg:self-stretch justify-center">
             <nav aria-label="Breadcrumb"
-              className="flex items-center justify-end gap-1.5 text-[12px] text-white/65 mb-6 h-[30px]">
+              className="flex items-center justify-end gap-1.5 text-[12px] text-white/65 mb-6">
               <Link to="/" className="hover:text-white transition-colors">Home</Link>
               <ChevronRight className="w-3.5 h-3.5 text-white/40" />
               <span className="text-white font-medium">Global Presence</span>
             </nav>
-            <div className="flex-1 flex items-center">
-              <div className="grid grid-cols-2 gap-x-10 gap-y-7">
-                {[
-                  { v:"20+",    l:"Countries Active"   },
-                  { v:"3",      l:"Continents"          },
-                  { v:"1,850+", l:"Pharmacies · Ghana"  },
-                  { v:"50+",    l:"Products"            },
-                ].map(s => (
-                  <div key={s.l} className="flex flex-col">
-                    <span className="font-display font-semibold text-white text-[16px] md:text-[19px] leading-none">{s.v}</span>
-                    <span className="mt-2 text-[10.5px] font-bold tracking-[0.2em] uppercase text-white/60">{s.l}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-2 gap-x-10 gap-y-7">
+              {[
+                { v:"20+",    l:"Countries Active"   },
+                { v:"3",      l:"Continents"          },
+                { v:"1,850+", l:"Pharmacies · Ghana"  },
+                { v:"50+",    l:"Products"            },
+              ].map(s => (
+                <div key={s.l} className="flex flex-col">
+                  <span className="font-display font-semibold text-white text-[16px] md:text-[19px] leading-none">{s.v}</span>
+                  <span className="mt-2 text-[10.5px] font-bold tracking-[0.2em] uppercase text-white/60">{s.l}</span>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -91,162 +100,9 @@ function GlobalHero() {
   );
 }
 
-/* ── GLOBE MAP ────────────────────────────────────── */
+/* ── WORLD MAP ────────────────────────────────────── */
 function GlobalWorldMap() {
-  const canvasRef = useRef(null);
-  const rotRef    = useRef(35);
-  const animRef   = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const dpr  = Math.min(window.devicePixelRatio || 1, 2);
-    const SIZE = 460;
-    canvas.width        = SIZE * dpr;
-    canvas.height       = SIZE * dpr;
-    canvas.style.width  = SIZE + "px";
-    canvas.style.height = SIZE + "px";
-
-    const ctx = canvas.getContext("2d");
-    ctx.scale(dpr, dpr);
-
-    const R  = SIZE * 0.40;
-    const cx = SIZE / 2;
-    const cy = SIZE / 2;
-
-    // ── country data baked in to avoid closure issues ──
-    const countries = [
-      { status:"HQ",       lat:25.2,  lng:55.3,  dot:"#F2C14E" },
-      { status:"Active",   lat:23.9,  lng:45.1,  dot:"#9DCD4A" },
-      { status:"Target",   lat:33.2,  lng:43.7,  dot:"#E84D6C" },
-      { status:"Active",   lat:7.9,   lng:-1.0,  dot:"#9DCD4A" },
-      { status:"Expanding",lat:9.1,   lng:8.7,   dot:"#62C7F5" },
-      { status:"Expanding",lat:-0.2,  lng:37.9,  dot:"#62C7F5" },
-      { status:"Target",   lat:-30.6, lng:22.9,  dot:"#E84D6C" },
-      { status:"Expanding",lat:12.6,  lng:104.9, dot:"#62C7F5" },
-      { status:"Active",   lat:14.1,  lng:108.3, dot:"#9DCD4A" },
-      { status:"Target",   lat:12.9,  lng:121.8, dot:"#E84D6C" },
-      { status:"Target",   lat:17.1,  lng:96.7,  dot:"#E84D6C" },
-    ];
-
-    const draw = () => {
-      ctx.clearRect(0, 0, SIZE, SIZE);
-      const rotRad = rotRef.current * Math.PI / 180;
-
-      // atmosphere
-      const atm = ctx.createRadialGradient(cx, cy, R * 0.85, cx, cy, R * 1.22);
-      atm.addColorStop(0,   "rgba(7,56,166,0)");
-      atm.addColorStop(0.5, "rgba(98,199,245,0.09)");
-      atm.addColorStop(1,   "rgba(7,56,166,0)");
-      ctx.beginPath(); ctx.arc(cx, cy, R * 1.22, 0, Math.PI * 2);
-      ctx.fillStyle = atm; ctx.fill();
-
-      // sphere fill
-      const sph = ctx.createRadialGradient(cx - R*.32, cy - R*.32, R*.04, cx, cy, R);
-      sph.addColorStop(0,   "rgba(7,56,166,0.28)");
-      sph.addColorStop(0.55,"rgba(7,56,166,0.11)");
-      sph.addColorStop(1,   "rgba(7,56,166,0.03)");
-      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.fillStyle = sph; ctx.fill();
-
-      // sphere border
-      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(7,56,166,0.30)";
-      ctx.lineWidth = 1.5; ctx.stroke();
-
-      // latitude lines
-      [-60,-30,0,30,60].forEach(lat => {
-        const phi = lat * Math.PI / 180;
-        const rL  = R * Math.cos(phi);
-        const yL  = cy - R * Math.sin(phi);
-        ctx.beginPath();
-        ctx.ellipse(cx, yL, rL, rL * 0.1, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(98,199,245,0.16)";
-        ctx.lineWidth = 0.5; ctx.stroke();
-      });
-
-      // longitude lines
-      for (let lng = 0; lng < 360; lng += 30) {
-        const theta = lng * Math.PI / 180 + rotRad;
-        const cosT  = Math.cos(theta);
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, Math.abs(R * cosT), R, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = cosT > 0
-          ? "rgba(98,199,245,0.22)"
-          : "rgba(98,199,245,0.07)";
-        ctx.lineWidth = 0.5; ctx.stroke();
-      }
-
-      // project & sort
-      const proj = countries.map(c => {
-        const phi   = c.lat * Math.PI / 180;
-        const theta = c.lng * Math.PI / 180 + rotRad;
-        const x3 = R * Math.cos(phi) * Math.sin(theta);
-        const y3 = R * Math.sin(phi);
-        const z3 = R * Math.cos(phi) * Math.cos(theta);
-        return { ...c, sx: cx + x3, sy: cy - y3, z3, depth: z3 / R, visible: z3 > -R * 0.1 };
-      }).sort((a, b) => a.z3 - b.z3);
-
-      // dashed connection lines from HQ
-      const hq = proj.find(c => c.status === "HQ" && c.depth > 0.05);
-      if (hq) {
-        proj.forEach(c => {
-          if (!c.visible || c.status === "HQ" || c.depth < 0.05) return;
-          ctx.save();
-          ctx.beginPath();
-          ctx.moveTo(hq.sx, hq.sy);
-          ctx.lineTo(c.sx,  c.sy);
-          ctx.strokeStyle = c.dot + "55";
-          ctx.lineWidth   = 0.9;
-          ctx.setLineDash([4, 4]);
-          ctx.stroke();
-          ctx.restore();
-        });
-      }
-
-      // markers
-      proj.forEach(c => {
-        if (!c.visible || c.depth < -0.1) return;
-        const isHQ = c.status === "HQ";
-        const dotR = isHQ ? 9 : 5;
-        const alpha = Math.max(0.3, 0.4 + c.depth * 0.6);
-        ctx.save();
-        ctx.globalAlpha = alpha;
-
-        // glow
-        const glow = ctx.createRadialGradient(c.sx, c.sy, 0, c.sx, c.sy, dotR * 3.8);
-        glow.addColorStop(0, c.dot + "99");
-        glow.addColorStop(1, c.dot + "00");
-        ctx.beginPath(); ctx.arc(c.sx, c.sy, dotR * 3.8, 0, Math.PI * 2);
-        ctx.fillStyle = glow; ctx.fill();
-
-        // dot
-        ctx.beginPath(); ctx.arc(c.sx, c.sy, dotR, 0, Math.PI * 2);
-        ctx.fillStyle   = c.dot; ctx.fill();
-        ctx.strokeStyle = "rgba(255,255,255,0.95)";
-        ctx.lineWidth   = isHQ ? 2 : 1.5; ctx.stroke();
-
-        ctx.restore();
-      });
-
-      // specular shine
-      const spec = ctx.createRadialGradient(cx - R*.36, cy - R*.36, 0, cx - R*.36, cy - R*.36, R * .58);
-      spec.addColorStop(0, "rgba(255,255,255,0.16)");
-      spec.addColorStop(1, "rgba(255,255,255,0)");
-      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.fillStyle = spec; ctx.fill();
-
-      rotRef.current += 0.12;
-      animRef.current = requestAnimationFrame(draw);
-    };
-
-    const timer = setTimeout(draw, 80);
-    return () => {
-      clearTimeout(timer);
-      if (animRef.current) cancelAnimationFrame(animRef.current);
-    };
-  }, []);
+  const [tooltip, setTooltip] = useState(null);
 
   const regions = [
     { name:"Africa",      color:"#9DCD4A", icon:"🌍" },
@@ -255,59 +111,162 @@ function GlobalWorldMap() {
   ];
 
   return (
-    <section data-testid="global-world-map"
-      className="py-16 md:py-24 bg-[#F7FAFD] relative overflow-hidden">
-      <div className="absolute inset-0 subtle-grid opacity-40 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#0738A6]/[0.04] blur-3xl pointer-events-none" />
+    <section data-testid="global-world-map" className="relative overflow-hidden">
 
-      <div className="container-x relative">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <span className="eyebrow">Where in the World We Operate</span>
-          <h2 className="mt-4 font-display font-semibold text-[#12233D] text-2xl sm:text-3xl lg:text-[40px] tracking-tight leading-[1.1]">
-            A Map of <span className="text-[#0738A6]">Our Reach</span>
+      {/* dark map panel */}
+      <div style={{ background:"linear-gradient(160deg,#06111f 0%,#0d2440 60%,#0a1929 100%)" }}>
+        {/* header */}
+        <div className="container-x pt-14 pb-6 text-center">
+          <span className="inline-block text-[10px] tracking-[0.32em] uppercase font-bold text-[#62C7F5] mb-3">
+            Where in the World We Operate
+          </span>
+          <h2 className="font-display font-semibold text-white text-2xl sm:text-3xl lg:text-[40px] tracking-tight leading-[1.1]">
+            A Map of{" "}
+            <span className="bg-gradient-to-r from-[#F2C14E] via-[#9DCD4A] to-[#62C7F5] bg-clip-text text-transparent">
+              Our Reach
+            </span>
           </h2>
-          <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
-            Our Dubai headquarters connects active markets, expanding regions, and
-            target countries across three continents.
+          <p className="mt-4 text-white/60 text-[14.5px] max-w-xl mx-auto leading-relaxed">
+            Hover any marker to see country details. Highlighted countries show our market status.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          {/* Globe */}
-          <div className="flex flex-col items-center">
-            <canvas
-              ref={canvasRef}
-              style={{ display:"block", width:"460px", height:"460px" }}
-              className="drop-shadow-[0_20px_60px_rgba(7,56,166,0.20)]"
-            />
-            <div className="mt-6 flex flex-wrap justify-center gap-5">
+        {/* MAP */}
+        <div className="relative w-full">
+          <ComposableMap
+            projection="geoNaturalEarth1"
+            projectionConfig={{ scale: 153, center: [25, 8] }}
+            style={{ width:"100%", height:"auto" }}
+            viewBox="0 0 960 500"
+          >
+            <Geographies geography={GEO_URL}>
+              {({ geographies }) =>
+                geographies.map(geo => {
+                  const status = ISO_STATUS[String(geo.id)];
+                  const col    = status ? STATUS_COLORS[status] : null;
+                  return (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill={status ? col.fill : "#1a3a5c"}
+                      stroke="#0b1f35"
+                      strokeWidth={0.4}
+                      style={{
+                        default: { outline:"none", transition:"fill 0.2s" },
+                        hover:   {
+                          fill:    status ? col.dot + "cc" : "#1e4470",
+                          outline: "none",
+                          filter:  status ? `drop-shadow(0 0 6px ${col.dot}88)` : "none",
+                        },
+                        pressed: { outline:"none" },
+                      }}
+                    />
+                  );
+                })
+              }
+            </Geographies>
+
+            {/* markers */}
+            {COUNTRIES.map(c => {
+              const col  = STATUS_COLORS[c.status];
+              const isHQ = c.status === "HQ";
+              const r    = isHQ ? 7 : 4.5;
+              return (
+                <Marker
+                  key={c.code}
+                  coordinates={[c.lng, c.lat]}
+                  onMouseEnter={() => setTooltip(c)}
+                  onMouseLeave={() => setTooltip(null)}
+                >
+                  {/* outer pulse ring */}
+                  <circle r={r * 3} fill={col.dot} opacity="0">
+                    <animate attributeName="r"       from={r} to={r * 4.5} dur="2.4s" begin="0s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" from="0.55" to="0"    dur="2.4s" begin="0s" repeatCount="indefinite" />
+                  </circle>
+                  {/* inner pulse ring */}
+                  <circle r={r * 1.8} fill={col.dot} opacity="0">
+                    <animate attributeName="r"       from={r} to={r * 2.8} dur="2.4s" begin="0.6s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" from="0.4" to="0"     dur="2.4s" begin="0.6s" repeatCount="indefinite" />
+                  </circle>
+                  {/* main dot */}
+                  <circle
+                    r={r}
+                    fill={col.dot}
+                    stroke="white"
+                    strokeWidth={isHQ ? 2 : 1.5}
+                    style={{ cursor:"pointer", filter:`drop-shadow(0 0 4px ${col.dot})` }}
+                  />
+                  {/* HQ label */}
+                  {isHQ && (
+                    <text
+                      y={-r - 4}
+                      textAnchor="middle"
+                      fill="#F2C14E"
+                      fontSize="5"
+                      fontWeight="700"
+                      fontFamily="Inter, sans-serif"
+                      letterSpacing="0.8"
+                    >
+                      HQ
+                    </text>
+                  )}
+                </Marker>
+              );
+            })}
+          </ComposableMap>
+
+          {/* tooltip */}
+          {tooltip && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-none z-10
+              bg-[#0d2440]/90 backdrop-blur-md border border-white/15 rounded-2xl
+              px-5 py-3 flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
+              <span className="text-2xl">{tooltip.flag}</span>
+              <div>
+                <div className="text-white font-display font-semibold text-[15px]">{tooltip.name}</div>
+                <div className="text-[10px] uppercase tracking-widest font-bold mt-0.5"
+                  style={{ color: STATUS_COLORS[tooltip.status].dot }}>
+                  {tooltip.region} · {tooltip.status}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* legend */}
+        <div className="border-t border-white/10">
+          <div className="container-x py-5 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex flex-wrap gap-6">
               {Object.entries(STATUS_COLORS).map(([label, c]) => (
-                <div key={label} className="flex items-center gap-2 text-[12px] font-semibold text-[#4B5563]">
-                  <span className="w-3 h-3 rounded-full border-2 border-white shadow-sm"
-                    style={{ background: c.dot }} />
+                <div key={label} className="flex items-center gap-2 text-[12px] font-semibold text-white/70">
+                  <span className="w-3 h-3 rounded-full border-2 border-white/30 shadow-sm"
+                    style={{ background: c.dot, boxShadow:`0 0 6px ${c.dot}88` }} />
                   {label}
                 </div>
               ))}
             </div>
+            <span className="text-white/35 text-[11px] hidden sm:block">Hover a marker for details</span>
           </div>
+        </div>
+      </div>
 
-          {/* Region cards */}
-          <div className="space-y-4">
+      {/* region cards — light bg */}
+      <div className="bg-[#F7FAFD] py-12">
+        <div className="container-x">
+          <div className="grid md:grid-cols-3 gap-5">
             {regions.map((r, i) => {
               const list = COUNTRIES.filter(c => c.region === r.name);
               return (
                 <motion.div key={r.name}
-                  initial={{ opacity:0, x:30 }} whileInView={{ opacity:1, x:0 }}
+                  initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
                   viewport={{ once:true }} transition={{ duration:0.5, delay: i * 0.1 }}
                   className="bg-white border border-[#E9EEF5] rounded-2xl p-5 card-hover">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
                       style={{ background: r.color + "18", border:`1px solid ${r.color}44` }}>
                       {r.icon}
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold tracking-[0.2em] uppercase"
-                        style={{ color: r.color }}>Region</div>
+                      <div className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color:r.color }}>Region</div>
                       <div className="font-display font-semibold text-[#12233D] text-[17px]">{r.name}</div>
                     </div>
                     <span className="ml-auto text-[11px] font-bold text-[#9CA3AF]">{list.length} markets</span>
@@ -321,8 +280,9 @@ function GlobalWorldMap() {
                           style={{ borderColor: col.dot + "44", background: col.ring }}>
                           <span>{c.flag}</span>
                           <span>{c.name}</span>
-                          <span className="text-[9px] font-bold tracking-wider uppercase ml-0.5"
-                            style={{ color: col.dot }}>{c.status}</span>
+                          <span className="text-[9px] font-bold tracking-wider uppercase ml-0.5" style={{ color:col.dot }}>
+                            {c.status}
+                          </span>
                         </div>
                       );
                     })}
@@ -340,13 +300,12 @@ function GlobalWorldMap() {
 /* ── PARTNER NETWORK ──────────────────────────────── */
 function PartnerNetwork() {
   const partners = [
-    { icon:Globe2,      name:"Shobha Global",           role:"International Partner",    color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Supports Shobha Healthcare's global expansion strategy, market access planning, and international business development across Africa, Asia, and the Middle East." },
-    { icon:Pill,        name:"Trident Pharmaceuticals",  role:"Distribution Collaborator",color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Strengthens supply chain capabilities and broadens our product portfolio. Trident's expertise and industry relationships complement Shobha's manufacturing and export operations." },
-    { icon:Stethoscope, name:"TIL Healthcare",           role:"Healthcare Collaborator",  color:"#7A1F7A", bg:"rgba(122,31,122,0.10)", desc:"Established collaborator with a strong track record in institutional pharmaceutical supply. TIL Healthcare's experience across hospital channels adds depth to Shobha's distribution capabilities." },
+    { icon:Globe2,      name:"Shobha Global",          role:"International Partner",    color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Supports Shobha Healthcare's global expansion strategy, market access planning, and international business development across Africa, Asia, and the Middle East." },
+    { icon:Pill,        name:"Trident Pharmaceuticals", role:"Distribution Collaborator",color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Strengthens supply chain capabilities and broadens our product portfolio. Trident's expertise and industry relationships complement Shobha's manufacturing and export operations." },
+    { icon:Stethoscope, name:"TIL Healthcare",          role:"Healthcare Collaborator",  color:"#7A1F7A", bg:"rgba(122,31,122,0.10)", desc:"Established collaborator with a strong track record in institutional pharmaceutical supply. TIL Healthcare's experience across hospital channels adds depth to Shobha's distribution capabilities." },
   ];
   return (
-    <section data-testid="global-partner-network"
-      className="py-16 md:py-20 bg-white relative overflow-hidden">
+    <section data-testid="global-partner-network" className="py-16 md:py-20 bg-white relative overflow-hidden">
       <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#0738A6]/[0.04] blur-3xl pointer-events-none" />
       <div className="container-x relative">
         <div className="max-w-3xl mb-12 md:mb-14">
@@ -357,8 +316,7 @@ function PartnerNetwork() {
           <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
             Shobha Healthcare's strength comes from its network. We work with manufacturing partners,
             distribution companies, and business collaborators who share our mission — to make quality
-            pharmaceutical and nutraceutical products accessible to the people who need them most.
-            Each relationship is built for the long term.
+            pharmaceutical products accessible to the people who need them most.
           </p>
         </div>
 
@@ -387,11 +345,8 @@ function PartnerNetwork() {
               <p className="mt-4 text-[#4B5563] text-[14.5px] leading-relaxed">
                 Our primary manufacturing partner for <span className="text-[#12233D] font-semibold">MDI inhalers</span> and
                 pharmaceutical products. Medisol Lifescience operates a state-of-the-art production facility in Gujarat —
-                certified to both EU-GMP and WHO-GMP standards.
-              </p>
-              <p className="mt-3 text-[#4B5563] text-[14.5px] leading-relaxed">
-                Medisol's facility is equipped for the production of pressurised metered-dose inhalers (pMDIs) — products
-                requiring specialised manufacturing environments, precise formulation control, and validated filling and sealing processes.
+                certified to both EU-GMP and WHO-GMP standards. Their precision-controlled manufacturing environments and
+                rigorous quality systems ensure every product bearing the Shobha name meets the highest international benchmarks.
               </p>
             </div>
             <div className="lg:col-span-5 grid grid-cols-2 gap-3">
@@ -418,11 +373,9 @@ function PartnerNetwork() {
               <motion.div key={p.name} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
                 viewport={{ once:true, margin:"-40px" }} transition={{ duration:0.5, delay: i * 0.1 }}
                 className="card-hover relative bg-white border border-[#E9EEF5] rounded-2xl p-7 overflow-hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-30"
-                  style={{ background:p.color }} />
+                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-30" style={{ background:p.color }} />
                 <div className="relative">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
-                    style={{ background:p.bg }}>
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background:p.bg }}>
                     <Icon className="w-6 h-6" style={{ color:p.color }} />
                   </div>
                   <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1.5" style={{ color:p.color }}>{p.role}</div>
@@ -441,8 +394,7 @@ function PartnerNetwork() {
 /* ── GHANA DEEP DIVE ──────────────────────────────── */
 function GhanaDeepDive() {
   return (
-    <section data-testid="global-ghana-deepdive"
-      className="py-16 md:py-20 bg-[#F7FAFD] relative overflow-hidden">
+    <section data-testid="global-ghana-deepdive" className="py-16 md:py-20 bg-[#F7FAFD] relative overflow-hidden">
       <div className="absolute inset-0 subtle-grid opacity-50 pointer-events-none" />
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-[#9DCD4A]/[0.08] blur-3xl pointer-events-none" />
       <div className="container-x relative">
@@ -501,8 +453,7 @@ function GhanaDeepDive() {
               <motion.div key={b.t} initial={{ opacity:0, y:16 }} whileInView={{ opacity:1, y:0 }}
                 viewport={{ once:true }} transition={{ duration:0.45, delay: i * 0.08 }}
                 className="bg-white border border-[#E9EEF5] rounded-2xl p-5">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                  style={{ background:`${b.c}1A` }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background:`${b.c}1A` }}>
                   <Icon className="w-5 h-5" style={{ color:b.c }} />
                 </div>
                 <div className="text-[10px] font-bold tracking-[0.18em] uppercase mb-1.5" style={{ color:b.c }}>{b.t}</div>
@@ -526,8 +477,7 @@ function PartnershipOpps() {
   ];
   return (
     <>
-      <section data-testid="global-partnership-opps"
-        className="py-16 md:py-20 bg-white relative overflow-hidden">
+      <section data-testid="global-partnership-opps" className="py-16 md:py-20 bg-white relative overflow-hidden">
         <div className="container-x relative">
           <div className="max-w-3xl mb-12 md:mb-14">
             <span className="eyebrow">Join Our Network</span>
@@ -535,13 +485,11 @@ function PartnershipOpps() {
               Interested in <span className="text-[#0738A6]">Partnering With Shobha?</span>
             </h2>
             <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
-              We are actively seeking partnerships with pharmaceutical companies, distributors, and
-              healthcare institutions across our target markets.
+              We are actively seeking partnerships with pharmaceutical companies, distributors, and healthcare
+              institutions across our target markets.
             </p>
           </div>
-          <div className="mb-3 text-[10px] font-bold tracking-[0.18em] uppercase text-[#4B5563]">
-            What we are actively looking for
-          </div>
+          <div className="mb-3 text-[10px] font-bold tracking-[0.18em] uppercase text-[#4B5563]">What we are actively looking for</div>
           <div className="grid md:grid-cols-2 gap-5">
             {opps.map((o, i) => {
               const Icon = o.icon;
@@ -609,7 +557,7 @@ function PartnershipOpps() {
 /* ── PAGE ─────────────────────────────────────────── */
 export default function GlobalPresence() {
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top:0, behavior:"instant" });
     document.title = "Global Presence — Shobha Healthcare";
   }, []);
   return (
