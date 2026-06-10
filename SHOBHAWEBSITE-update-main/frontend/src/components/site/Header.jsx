@@ -58,7 +58,7 @@ const navLinks = [
   },
   {
     label: "Nutraceuticals",
-    href: "/#nutraceuticals",
+    href: "/nutraceuticals ",
   },
   { label: "Why Shobha", href: "/why-shobha" },
   { label: "Global Presence", href: "/global-presence" },

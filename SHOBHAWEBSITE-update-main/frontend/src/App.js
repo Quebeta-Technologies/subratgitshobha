@@ -16,6 +16,7 @@ import AdminInquiries from "./pages/admin/AdminInquiries";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminContent from "./pages/admin/AdminContent";
 import GlobalPresence from "./pages/GlobalPresence";
+import NutraceuticalsPage from "./pages/NutraceuticalsPage";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
               element={<PharmaCategoryPage />}
             />
             <Route path="/global-presence" element={<GlobalPresence />} />
+            <Route path="/nutraceuticals" element={<NutraceuticalsPage />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
