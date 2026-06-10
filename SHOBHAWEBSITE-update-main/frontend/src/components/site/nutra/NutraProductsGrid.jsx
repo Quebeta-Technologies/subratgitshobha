@@ -27,7 +27,7 @@ const products = [
     icon: Heart,
     color: "#E84D6C",
     accent: "rgba(232,77,108,0.12)",
-    image: "/brand/salmet-f250.png",
+    image: "/brand/nutra-women-flora.png",
   },
   {
     sno: 2,
@@ -201,32 +201,49 @@ const products = [
 
 const PAGE_SIZE = 6;
 
-function ProductImage({ p }) {
+// Renders the full-width card header — photo as background if available,
+// coloured gradient fallback if not. Category badge floats top-right.
+function CardHeader({ p }) {
   const [failed, setFailed] = useState(false);
   const Icon = p.icon;
-
-  if (!p.image || failed) {
-    return (
-      <div
-        className="w-16 h-16 rounded-xl flex items-center justify-center shadow-sm flex-shrink-0"
-        style={{ background: p.color }}
-      >
-        <Icon className="w-7 h-7 text-white" />
-      </div>
-    );
-  }
+  const showImage = p.image && !failed;
 
   return (
     <div
-      className="w-16 h-16 rounded-xl overflow-hidden shadow-sm border border-[#E9EEF5] flex-shrink-0"
-      style={{ background: p.accent }}
+      className="relative w-full overflow-hidden"
+      style={{
+        height: "180px",
+        background: showImage
+          ? p.accent
+          : `linear-gradient(135deg, ${p.color} 0%, #12233D 160%)`,
+      }}
     >
-      <img
-        src={p.image}
-        alt={p.name}
-        className="w-full h-full object-contain p-1"
-        onError={() => setFailed(true)}
-      />
+      {showImage && (
+        <img
+          src={p.image}
+          alt={p.name}
+          className="w-full h-full object-cover"
+          onError={() => setFailed(true)}
+        />
+      )}
+
+      {/* Fallback: centred icon when no image */}
+      {!showImage && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Icon className="w-14 h-14 text-white/40" />
+        </div>
+      )}
+
+      {/* Dark gradient so badge is always readable */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+
+      {/* Category badge — top right */}
+      <span
+        className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full text-white shadow"
+        style={{ background: p.color }}
+      >
+        {p.category}
+      </span>
     </div>
   );
 }
@@ -279,23 +296,7 @@ export default function NutraProductsGrid() {
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 className="card-hover bg-white border border-[#E9EEF5] rounded-2xl overflow-hidden flex flex-col"
               >
-                {/* Top accent strip — image + badge */}
-                <div
-                  className="relative px-5 pt-5 pb-4 flex items-start justify-between gap-3"
-                  style={{
-                    background: `linear-gradient(135deg, ${p.accent} 0%, rgba(247,250,253,1) 100%)`,
-                  }}
-                >
-                  <ProductImage p={p} />
-
-                  {/* Category badge */}
-                  <span
-                    className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full text-white whitespace-nowrap"
-                    style={{ background: p.color }}
-                  >
-                    {p.category}
-                  </span>
-                </div>
+                <CardHeader p={p} />
 
                 {/* Content */}
                 <div className="p-5 flex-1 flex flex-col">
