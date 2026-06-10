@@ -9,6 +9,7 @@ import WhySobha from "./pages/WhySobha";
 import Contact from "./pages/Contact";
 import Pharmaceuticals from "./pages/Pharmaceuticals";
 import PharmaCategoryPage from "./pages/PharmaCategoryPage";
+import Nutraceuticals from "./pages/Nutraceuticals";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -16,7 +17,6 @@ import AdminInquiries from "./pages/admin/AdminInquiries";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminContent from "./pages/admin/AdminContent";
 import GlobalPresence from "./pages/GlobalPresence";
-import NutraceuticalsPage from "./pages/NutraceuticalsPage";
 
 function App() {
   return (
@@ -43,8 +43,8 @@ function App() {
               path="/pharmaceuticals/:slug"
               element={<PharmaCategoryPage />}
             />
+            <Route path="/nutraceuticals" element={<Nutraceuticals />} />
             <Route path="/global-presence" element={<GlobalPresence />} />
-            <Route path="/nutraceuticals" element={<NutraceuticalsPage />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
