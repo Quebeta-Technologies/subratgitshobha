@@ -42,8 +42,8 @@ const team = [
     bg: "rgba(122,31,122,0.12)",
     name: "Amitabh Saboo",
     role: "Investor",
-    desc: "Manages product registrations, import approvals, and compliance documentation across 20+ markets — ensuring every product meets the regulatory requirements of every country we supply.",
-    tags: ["Registrations", "Compliance", "20+ Markets"],
+    desc: "Amitabh Saboo is an investor in Shobha Healthcare, contributing strategic guidance and business expertise to support the company’s growth and long-term vision.",
+    tags: ["Investor", "Strategic Guidance", "Business Expertise"],
     social: {
       linkedin: "https://linkedin.com",
       instagram: "https://instagram.com",
