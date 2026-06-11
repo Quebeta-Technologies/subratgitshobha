@@ -22,7 +22,7 @@ const photos = [
     accent: "rgba(232,77,108,0.12)",
   },
   {
-    src: "/brand/hero-nutra.png",
+    src: "/brand/ga12.jpg",
     title: "Pure Ingredients",
     caption: "GMP-manufactured · honestly labelled · clinically validated",
     icon: Sparkles,
