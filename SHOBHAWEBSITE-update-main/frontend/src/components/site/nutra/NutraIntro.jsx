@@ -54,7 +54,7 @@ export default function NutraIntro() {
           <div className="lg:col-span-5 relative lg:sticky lg:top-28">
             <div className="relative rounded-3xl overflow-hidden shadow-[0_30px_70px_rgba(94,135,34,0.22)] aspect-[4/3]">
               <img
-                src="/brand/hero-nutra.png"
+                src="/brand/nutraintro.jpg"
                 alt="Shobha Healthcare Nutraceuticals"
                 className="w-full h-full object-cover"
                 onError={(e) => {
