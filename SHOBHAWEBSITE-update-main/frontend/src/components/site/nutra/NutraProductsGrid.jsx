@@ -27,7 +27,7 @@ const products = [
     icon: Heart,
     color: "#E84D6C",
     accent: "rgba(232,77,108,0.12)",
-    image: "/brand/tyydytdyj.png",
+    image: "/brand/tyury.jpg",
   },
   {
     sno: 2,
