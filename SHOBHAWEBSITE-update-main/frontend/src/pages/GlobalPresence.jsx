@@ -64,7 +64,7 @@ function GlobalHero() {
             </h1>
             <p className="mt-7 text-white/75 text-[16px] md:text-[17px] leading-relaxed max-w-2xl">
               From a state-of-the-art EU-GMP facility in Gujarat, through a Dubai export hub, into pharmacies
-              and hospitals across Africa, Asia, and the Middle East.
+              and hospitals across West & East Africa, Asia, and the Middle East.
             </p>
           </motion.div>
           <motion.div initial={{ opacity:0, x:20 }} animate={{ opacity:1, x:0 }}

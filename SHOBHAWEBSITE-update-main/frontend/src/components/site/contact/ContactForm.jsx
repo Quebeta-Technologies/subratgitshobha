@@ -26,7 +26,7 @@ const PRODUCT_INTERESTS = [
   { id: "mdi", label: "MDI Inhalers" },
   { id: "oncology", label: "Oncology" },
   { id: "critical", label: "Critical Care" },
-  { id: "biologicals", label: "Biologicals" },
+  
   { id: "nutraceuticals", label: "Nutraceuticals" },
   { id: "full", label: "Full Product Range" },
 ];
