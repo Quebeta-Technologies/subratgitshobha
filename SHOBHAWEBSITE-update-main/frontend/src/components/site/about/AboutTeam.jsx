@@ -40,8 +40,8 @@ const team = [
     icon: FlaskConical,
     color: "#7A1F7A",
     bg: "rgba(122,31,122,0.12)",
-    name: "Regulatory Affairs Team",
-    role: "Regulatory & Compliance",
+    name: "Amitabh Saboo",
+    role: "Investor",
     desc: "Manages product registrations, import approvals, and compliance documentation across 20+ markets — ensuring every product meets the regulatory requirements of every country we supply.",
     tags: ["Registrations", "Compliance", "20+ Markets"],
     social: {
