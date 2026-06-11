@@ -81,8 +81,8 @@ function GlobalHero() {
             </nav>
             <div className="grid grid-cols-2 gap-x-10 gap-y-7">
               {[
-                { v:"20+",    l:"Countries Active"   },
-                { v:"3",      l:"Continents"          },
+                { v:"15+",    l:"Countries Active"   },
+                { v:"4",      l:"Continents"          },
                 { v:"1,850+", l:"Pharmacies · Ghana"  },
                 { v:"50+",    l:"Products"            },
               ].map(s => (
