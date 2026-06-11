@@ -62,7 +62,7 @@ function GlobalHero() {
             <h1 className="font-display font-semibold text-white text-[30px] sm:text-[38px] lg:text-[52px] xl:text-[56px] leading-[1.08] tracking-tight">
               One Network.{" "}
               <span className="bg-gradient-to-r from-[#F2C14E] via-[#9DCD4A] to-[#62C7F5] bg-clip-text text-transparent">
-                Three Continents. Twenty Markets.
+                Four Continents. Fifteen Markets.
               </span>
             </h1>
             <p className="mt-7 text-white/75 text-[16px] md:text-[17px] leading-relaxed max-w-2xl">
