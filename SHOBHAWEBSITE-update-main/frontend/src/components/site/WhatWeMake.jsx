@@ -5,7 +5,7 @@ import { Stethoscope, Microscope, Wind, Dna, ArrowRight } from "lucide-react";
 const categories = [
   {
     icon: Stethoscope,
-    name: "Critical Care",
+    name: "Injectables",
     color: "#E84D6C",
     bg: "rgba(232,77,108,0.08)",
     desc:
@@ -29,7 +29,7 @@ const categories = [
   },
   {
     icon: Dna,
-    name: "Biologicals",
+    name: "Antibiotics",
     color: "#7A1F7A",
     bg: "rgba(122,31,122,0.10)",
     desc:
