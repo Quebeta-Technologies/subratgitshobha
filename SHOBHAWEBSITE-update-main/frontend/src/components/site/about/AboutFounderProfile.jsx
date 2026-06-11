@@ -107,7 +107,7 @@ export default function AboutFounderProfile() {
                     Co-Founded
                   </div>
                   <div className="text-white font-display font-medium">
-                    Greenwich Therapeutics &amp; United Pharma, Ghana
+                    Greenwich Therapeutics &amp;Ghana
                   </div>
                 </div>
               </div>
@@ -176,8 +176,8 @@ export default function AboutFounderProfile() {
               <span className="text-white font-semibold">
                 Greenwich Therapeutics
               </span>{" "}
-              and{" "}
-              <span className="text-white font-semibold">United Pharma</span> —
+              {" "}
+              <span className="text-white font-semibold"></span> —
               serving over{" "}
               <span className="text-[#9DCD4A] font-semibold">
                 1,850 pharmacies

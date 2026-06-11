@@ -14,7 +14,7 @@ const team = [
     color: "#0738A6",
     name: "Mr. Jagdish Maheshwari",
     role: "Founder & CEO",
-    desc: "30+ years in pharmaceutical manufacturing and global distribution. Co-founder of Greenwich Therapeutics & United Pharma, Ghana. Drives Shobha's global strategy and partnership vision.",
+    desc: "30+ years in pharmaceutical manufacturing and global distribution. Co-founder of Greenwich Therapeutics, Ghana. Drives Shobha's global strategy and partnership vision.",
     tags: ["Strategy", "Partnerships", "Global Distribution"],
     social: {
       linkedin: "https://linkedin.com",
