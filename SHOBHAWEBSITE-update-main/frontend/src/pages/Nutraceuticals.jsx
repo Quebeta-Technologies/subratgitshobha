@@ -6,7 +6,7 @@ import NutraHero from "../components/site/nutra/NutraHero";
 import NutraIntro from "../components/site/nutra/NutraIntro";
 import NutraGallery from "../components/site/nutra/NutraGallery";
 import NutraProductsGrid from "../components/site/nutra/NutraProductsGrid";
-import nutraContactSection from "../components/site/nutra/nutracontact.jsx";
+import NutraContactSection from "../components/site/nutra/nutracontact.jsx";
 
 export default function Nutraceuticals() {
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Nutraceuticals() {
       <NutraIntro />
       <NutraGallery />
       <NutraProductsGrid />
-      <nutraContactSection />
+      <NutraContactSection />
       <Footer />
       <WhatsAppFloat />
     </div>
