@@ -27,7 +27,7 @@ const products = [
     icon: Heart,
     color: "#E84D6C",
     accent: "rgba(232,77,108,0.12)",
-    image: "/brand/N-1.jpg",
+    image: "/brand/N-7.png",
   },
   {
     sno: 2,
@@ -63,7 +63,7 @@ const products = [
     icon: Droplets,
     color: "#B45309",
     accent: "rgba(180,83,9,0.12)",
-    image: "/brand/nutra-iron-with-vitamins.png",
+    image: "/brand/N-8.jpg",
   },
   {
     sno: 5,
@@ -75,7 +75,7 @@ const products = [
     icon: Bone,
     color: "#475569",
     accent: "rgba(71,85,105,0.12)",
-    image: "/brand/nutra-healthy-bones.png",
+    image: "/brand/N-4.jpg",
   },
   {
     sno: 6,
@@ -87,7 +87,7 @@ const products = [
     icon: Activity,
     color: "#0E7490",
     accent: "rgba(14,116,144,0.12)",
-    image: "/brand/nutra-triflex.png",
+    image: "/brand/N-5.jpg",
   },
   {
     sno: 7,
@@ -99,7 +99,7 @@ const products = [
     icon: Shield,
     color: "#0738A6",
     accent: "rgba(7,56,166,0.12)",
-    image: "/brand/nutra-healthy-prostate.png",
+    image: "/brand/N-9.jpg",
   },
   {
     sno: 8,
@@ -111,7 +111,7 @@ const products = [
     icon: ShieldCheck,
     color: "#D97706",
     accent: "rgba(242,193,78,0.18)",
-    image: "/brand/nutra-vit-c-d-zinc.png",
+    image: "/brand/N-6.jpg",
   },
   {
     sno: 9,
@@ -123,7 +123,7 @@ const products = [
     icon: Leaf,
     color: "#5e8722",
     accent: "rgba(94,135,34,0.15)",
-    image: "/brand/nutra-sanjeevani.png",
+    image: "/brand/N-1.jpg",
   },
   {
     sno: 10,
@@ -147,7 +147,7 @@ const products = [
     icon: Brain,
     color: "#6D28D9",
     accent: "rgba(109,40,217,0.12)",
-    image: "/brand/nutra-neurogold.png",
+    image: "/brand/N-3.jpg",
   },
   {
     sno: 12,
@@ -171,7 +171,7 @@ const products = [
     icon: ShieldCheck,
     color: "#9DCD4A",
     accent: "rgba(157,205,74,0.15)",
-    image: "/brand/nutra-immune-strong.png",
+    image: "/brand/N-2.jpg",
   },
   {
     sno: 14,
