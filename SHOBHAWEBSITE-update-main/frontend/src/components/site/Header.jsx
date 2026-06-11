@@ -14,8 +14,8 @@ import {
   Syringe,
   Microscope,
   Pill,
-  Sparkles,
 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -67,7 +67,7 @@ const navLinks = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null); // for mobile accordion
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   return (
     <header
@@ -135,71 +135,121 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="xl:hidden border-t border-[#E9EEF5] bg-white max-h-[calc(100vh-120px)] overflow-y-auto">
-          <div className="container-x py-4 flex flex-col gap-1">
-            {navLinks.map((l) => (
-              <div key={l.label}>
-                {l.dropdown ? (
-                  <div>
-                    <button
-                      onClick={() =>
-                        setOpenDropdown(openDropdown === l.label ? null : l.label)
-                      }
-                      className="w-full py-3 flex items-center justify-between text-[#12233D] font-medium border-b border-[#E9EEF5]"
-                    >
-                      {l.label}
-                      <ChevronDown
-                        className={`w-4 h-4 transition-transform ${
-                          openDropdown === l.label ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-                    {openDropdown === l.label && (
-                      <div className="pl-4 py-2 space-y-1">
-                        {l.dropdown.map((sub) => (
-                          <a
-                            key={sub.label}
-                            href={sub.href}
-                            onClick={() => {
-                              setOpen(false);
-                              setOpenDropdown(null);
-                            }}
-                            className="flex items-center gap-3 py-2 text-[#4B5563] text-sm hover:text-[#0738A6]"
-                          >
-                            <sub.icon
-                              className="w-4 h-4"
-                              style={{ color: sub.color }}
-                            />
-                            {sub.label}
-                          </a>
-                        ))}
+      {/* Mobile slide-in drawer from right */}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="xl:hidden fixed inset-0 bg-black/40 z-40"
+              onClick={() => setOpen(false)}
+            />
+
+            {/* Drawer panel */}
+            <motion.div
+              key="drawer"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
+              className="xl:hidden fixed top-0 right-0 h-full w-[300px] bg-white z-50 shadow-2xl flex flex-col"
+            >
+              {/* Drawer header */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-[#E9EEF5]">
+                <Logo className="h-9 w-auto" />
+                <button
+                  onClick={() => setOpen(false)}
+                  className="p-2 text-[#12233D] hover:bg-[#F7FAFD] rounded-lg"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Nav links */}
+              <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-1">
+                {navLinks.map((l) => (
+                  <div key={l.label}>
+                    {l.dropdown ? (
+                      <div>
+                        <button
+                          onClick={() =>
+                            setOpenDropdown(openDropdown === l.label ? null : l.label)
+                          }
+                          className="w-full py-3 flex items-center justify-between text-[#12233D] font-medium border-b border-[#E9EEF5]"
+                        >
+                          {l.label}
+                          <ChevronDown
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              openDropdown === l.label ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                        <AnimatePresence>
+                          {openDropdown === l.label && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pl-4 py-2 space-y-1">
+                                {l.dropdown.map((sub) => (
+                                  <a
+                                    key={sub.label}
+                                    href={sub.href}
+                                    onClick={() => {
+                                      setOpen(false);
+                                      setOpenDropdown(null);
+                                    }}
+                                    className="flex items-center gap-3 py-2 text-[#4B5563] text-sm hover:text-[#0738A6]"
+                                  >
+                                    <sub.icon
+                                      className="w-4 h-4"
+                                      style={{ color: sub.color }}
+                                    />
+                                    {sub.label}
+                                  </a>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
+                    ) : (
+                      <a
+                        href={l.href}
+                        onClick={() => setOpen(false)}
+                        className="block py-3 text-[#12233D] font-medium border-b border-[#E9EEF5]"
+                      >
+                        {l.label}
+                      </a>
                     )}
                   </div>
-                ) : (
-                  <a
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="block py-3 text-[#12233D] font-medium border-b border-[#E9EEF5]"
-                  >
-                    {l.label}
-                  </a>
-                )}
+                ))}
               </div>
-            ))}
-            <a
-              href="/contact"
-              onClick={() => setOpen(false)}
-              className="btn-primary justify-center mt-4"
-            >
-              Partner With Us
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-      )}
+
+              {/* Drawer footer CTA */}
+              <div className="px-5 py-5 border-t border-[#E9EEF5]">
+                <a
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="btn-primary justify-center w-full"
+                >
+                  Partner With Us
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
