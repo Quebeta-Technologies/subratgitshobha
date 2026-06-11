@@ -27,7 +27,7 @@ export default function GhanaNetwork() {
                 Ghana Distribution Network
               </span>
               <h2 className="mt-4 font-display font-semibold text-white text-2xl md:text-3xl lg:text-[34px] leading-[1.15] tracking-tight">
-                Greenwich Therapeutics & United Pharma — Accra, Ghana
+                Greenwich Therapeutics — Accra, Ghana
               </h2>
               <p className="mt-5 text-white/80 text-[15px] leading-relaxed max-w-xl">
                 Co-owned by our founder (25% equity stake), these two
