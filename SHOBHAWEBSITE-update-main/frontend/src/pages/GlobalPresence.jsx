@@ -13,20 +13,19 @@ import WhatsAppFloat from "../components/site/WhatsAppFloat";
 
 /* ── DATA ─────────────────────────────────────────── */
 const COUNTRIES = [
-  { code:"AE", flag:"🇦🇪", name:"UAE",          region:"Middle East", status:"HQ",        lat:25.2,  lng:55.3  },
-  { code:"SA", flag:"🇸🇦", name:"Saudi Arabia", region:"Middle East", status:"Active",    lat:23.9,  lng:45.1  },
-  { code:"IQ", flag:"🇮🇶", name:"Iraq",         region:"Middle East", status:"Target",    lat:33.2,  lng:43.7  },
-  { code:"GH", flag:"🇬🇭", name:"Ghana",        region:"Africa",      status:"Active",    lat:7.9,   lng:-1.0  },
-  { code:"NG", flag:"🇳🇬", name:"Nigeria",      region:"Africa",      status:"Expanding", lat:9.1,   lng:8.7   },
-  { code:"KE", flag:"🇰🇪", name:"Kenya",        region:"Africa",      status:"Expanding", lat:-0.2,  lng:37.9  },
-  { code:"ZA", flag:"🇿🇦", name:"South Africa", region:"Africa",      status:"Target",    lat:-30.6, lng:22.9  },
-  { code:"KH", flag:"🇰🇭", name:"Cambodia",     region:"Asia",        status:"Expanding", lat:12.6,  lng:104.9 },
-  { code:"VN", flag:"🇻🇳", name:"Vietnam",      region:"Asia",        status:"Active",    lat:14.1,  lng:108.3 },
-  { code:"PH", flag:"🇵🇭", name:"Philippines",  region:"Asia",        status:"Target",    lat:12.9,  lng:121.8 },
-  { code:"MM", flag:"🇲🇲", name:"Myanmar",      region:"Asia",        status:"Target",    lat:17.1,  lng:96.7  },
+  { code:"AE", flag:"🇦🇪", name:"UAE",          region:"Middle East",   status:"HQ",        lat:25.2,  lng:55.3  },
+  { code:"SA", flag:"🇸🇦", name:"Saudi Arabia", region:"Middle East",   status:"Active",    lat:23.9,  lng:45.1  },
+  { code:"IQ", flag:"🇮🇶", name:"Iraq",         region:"Middle East",   status:"Target",    lat:33.2,  lng:43.7  },
+  { code:"GH", flag:"🇬🇭", name:"Ghana",        region:"West Africa",   status:"Active",    lat:7.9,   lng:-1.0  },
+  { code:"NG", flag:"🇳🇬", name:"Nigeria",      region:"West Africa",   status:"Expanding", lat:9.1,   lng:8.7   },
+  { code:"KE", flag:"🇰🇪", name:"Kenya",        region:"East Africa",   status:"Expanding", lat:-0.2,  lng:37.9  },
+  { code:"ZA", flag:"🇿🇦", name:"South Africa", region:"East Africa",   status:"Target",    lat:-30.6, lng:22.9  },
+  { code:"KH", flag:"🇰🇭", name:"Cambodia",     region:"Southeast Asia",status:"Expanding", lat:12.6,  lng:104.9 },
+  { code:"VN", flag:"🇻🇳", name:"Vietnam",      region:"Southeast Asia",status:"Active",    lat:14.1,  lng:108.3 },
+  { code:"PH", flag:"🇵🇭", name:"Philippines",  region:"Southeast Asia",status:"Target",    lat:12.9,  lng:121.8 },
+  { code:"MM", flag:"🇲🇲", name:"Myanmar",      region:"Southeast Asia",status:"Target",    lat:17.1,  lng:96.7  },
 ];
 
-/* numeric ISO → status  (used to colour country shapes) */
 const ISO_STATUS = {
   "784":"HQ", "682":"Active", "368":"Target",
   "288":"Active", "566":"Expanding", "404":"Expanding", "710":"Target",
@@ -39,8 +38,6 @@ const STATUS_COLORS = {
   Expanding: { dot:"#62C7F5", fill:"rgba(98,199,245,0.55)",  ring:"rgba(98,199,245,0.25)",  text:"#62C7F5" },
   Target:    { dot:"#E84D6C", fill:"rgba(232,77,108,0.55)",  ring:"rgba(232,77,108,0.25)",  text:"#E84D6C" },
 };
-
-const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 /* ── HERO ─────────────────────────────────────────── */
 function GlobalHero() {
@@ -104,7 +101,6 @@ function GlobalHero() {
 function GlobalWorldMap() {
   const [tooltip, setTooltip] = useState(null);
 
-  /* Political-map colour palette — varied so countries look distinct */
   const PALETTE = [
     "#F5D778","#A8D898","#F5A87E","#90C4E0",
     "#C8A8D8","#88D0B4","#F0C898","#A0D4A8",
@@ -115,7 +111,6 @@ function GlobalWorldMap() {
   const getCountryColor = (isoId) =>
     PALETTE[Math.abs(parseInt(isoId || "0")) % PALETTE.length];
 
-  /* Shobha status colours — solid, clearly distinct from palette */
   const STATUS_MAP = {
     HQ:        { dot:"#E6A800", fill:"#FFD740", ring:"rgba(242,193,78,0.25)"  },
     Active:    { dot:"#5AA000", fill:"#8FD14F", ring:"rgba(157,205,74,0.25)"  },
@@ -123,7 +118,6 @@ function GlobalWorldMap() {
     Target:    { dot:"#C8003C", fill:"#FF6680", ring:"rgba(232,77,108,0.25)"  },
   };
 
-  /* Numeric ISO → status */
   const ISO_STATUS_LOCAL = {
     "784":"HQ","682":"Active","368":"Target",
     "288":"Active","566":"Expanding","404":"Expanding","710":"Target",
@@ -131,9 +125,10 @@ function GlobalWorldMap() {
   };
 
   const regions = [
-    { name:"Africa",      color:"#5AA000", icon:"🌍" },
-    { name:"Middle East", color:"#E6A800", icon:"🕌" },
-    { name:"Asia",        color:"#0080C0", icon:"🌏" },
+    { name:"West Africa",   color:"#5AA000", icon:"🌍", subtitle:"Ghana & Nigeria"  },
+    { name:"East Africa",   color:"#E6A800", icon:"🌐", subtitle:"Kenya & More"     },
+    { name:"Southeast Asia",color:"#0080C0", icon:"🌏", subtitle:"4 Countries"      },
+    { name:"Middle East",   color:"#7A1F7A", icon:"🕌", subtitle:"UAE & GCC"        },
   ];
 
   return (
@@ -150,7 +145,7 @@ function GlobalWorldMap() {
         </p>
       </div>
 
-      {/* MAP — ocean blue background, full-width centered */}
+      {/* MAP */}
       <div className="relative w-full overflow-hidden mx-auto" style={{ background:"#A8D0E8" }}>
         <ComposableMap
           width={960}
@@ -198,7 +193,6 @@ function GlobalWorldMap() {
                 onMouseEnter={() => setTooltip(c)}
                 onMouseLeave={() => setTooltip(null)}
               >
-                {/* pulse rings */}
                 <circle r={r} fill={sc.dot} opacity="0">
                   <animate attributeName="r"       from={r}     to={r * 5}   dur="2.5s" begin="0s"   repeatCount="indefinite" />
                   <animate attributeName="opacity" from="0.55"  to="0"       dur="2.5s" begin="0s"   repeatCount="indefinite" />
@@ -207,7 +201,6 @@ function GlobalWorldMap() {
                   <animate attributeName="r"       from={r}     to={r * 3}   dur="2.5s" begin="0.8s" repeatCount="indefinite" />
                   <animate attributeName="opacity" from="0.40"  to="0"       dur="2.5s" begin="0.8s" repeatCount="indefinite" />
                 </circle>
-                {/* main dot */}
                 <circle
                   r={r}
                   fill={sc.dot}
@@ -215,7 +208,6 @@ function GlobalWorldMap() {
                   strokeWidth={isHQ ? 2.5 : 2}
                   style={{ cursor:"pointer", filter:`drop-shadow(0 2px 5px ${sc.dot}bb)` }}
                 />
-                {/* HQ label */}
                 {isHQ && (
                   <text y={-r - 5} textAnchor="middle"
                     fill="#12233D" fontSize="6.5" fontWeight="800"
@@ -228,7 +220,7 @@ function GlobalWorldMap() {
           })}
         </ComposableMap>
 
-        {/* Tooltip — light style */}
+        {/* Tooltip */}
         {tooltip && (
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2 pointer-events-none z-20
             bg-white/95 backdrop-blur border border-[#E9EEF5] rounded-2xl
@@ -261,10 +253,10 @@ function GlobalWorldMap() {
         </div>
       </div>
 
-      {/* Region cards */}
+      {/* Region cards — 4 columns */}
       <div className="bg-[#F7FAFD] py-12">
         <div className="container-x mx-auto">
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {regions.map((r, i) => {
               const list = COUNTRIES.filter(c => c.region === r.name);
               return (
@@ -279,9 +271,10 @@ function GlobalWorldMap() {
                     </div>
                     <div>
                       <div className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color:r.color }}>Region</div>
-                      <div className="font-display font-semibold text-[#12233D] text-[17px]">{r.name}</div>
+                      <div className="font-display font-semibold text-[#12233D] text-[15px]">{r.name}</div>
+                      <div className="text-[11px] text-[#4B5563]">{r.subtitle}</div>
                     </div>
-                    <span className="ml-auto text-[11px] font-bold text-[#9CA3AF]">{list.length} markets</span>
+                    <span className="ml-auto text-[11px] font-bold text-[#9CA3AF] self-start">{list.length} markets</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {list.map(c => {
