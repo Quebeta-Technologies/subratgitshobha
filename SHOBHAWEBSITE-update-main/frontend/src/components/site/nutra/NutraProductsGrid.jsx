@@ -293,14 +293,10 @@ export default function NutraProductsGrid() {
 
                 <div className="p-5 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[10.5px] font-bold uppercase tracking-widest text-[#5e8722]">
-                      {p.brand}
-                    </span>
-                    <span className="text-[#E9EEF5]">·</span>
-                    <span className="text-[10.5px] font-bold uppercase tracking-widest text-[#4B5563]">
-                      Sno. {p.sno}
-                    </span>
-                  </div>
+  <span className="text-[10.5px] font-bold uppercase tracking-widest text-[#5e8722]">
+    {p.brand}
+  </span>
+</div>
 
                   <h3 className="font-display font-bold text-[#12233D] text-[17px] md:text-[18px] leading-tight">
                     {p.name}
