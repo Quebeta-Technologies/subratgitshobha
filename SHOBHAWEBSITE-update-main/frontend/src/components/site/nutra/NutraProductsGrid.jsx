@@ -201,8 +201,6 @@ const products = [
 
 const PAGE_SIZE = 6;
 
-// Renders the full-width card header — photo as background if available,
-// coloured gradient fallback if not. Category badge floats top-right.
 function CardHeader({ p }) {
   const [failed, setFailed] = useState(false);
   const Icon = p.icon;
@@ -212,7 +210,7 @@ function CardHeader({ p }) {
     <div
       className="relative w-full overflow-hidden"
       style={{
-        height: "180px",
+        height: "400px",
         background: showImage
           ? p.accent
           : `linear-gradient(135deg, ${p.color} 0%, #12233D 160%)`,
@@ -222,22 +220,19 @@ function CardHeader({ p }) {
         <img
           src={p.image}
           alt={p.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
           onError={() => setFailed(true)}
         />
       )}
 
-      {/* Fallback: centred icon when no image */}
       {!showImage && (
         <div className="absolute inset-0 flex items-center justify-center">
           <Icon className="w-14 h-14 text-white/40" />
         </div>
       )}
 
-      {/* Dark gradient so badge is always readable */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
 
-      {/* Category badge — top right */}
       <span
         className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full text-white shadow"
         style={{ background: p.color }}
@@ -262,7 +257,6 @@ export default function NutraProductsGrid() {
       <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#62C7F5]/[0.06] blur-3xl pointer-events-none" />
 
       <div className="container-x relative">
-        {/* Section header */}
         <div className="grid lg:grid-cols-12 gap-8 items-end mb-10">
           <div className="lg:col-span-7">
             <span className="eyebrow">Browse the Range</span>
@@ -279,7 +273,6 @@ export default function NutraProductsGrid() {
           </div>
         </div>
 
-        {/* Product cards grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key="nutra-products"
@@ -298,7 +291,6 @@ export default function NutraProductsGrid() {
               >
                 <CardHeader p={p} />
 
-                {/* Content */}
                 <div className="p-5 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-[10.5px] font-bold uppercase tracking-widest text-[#5e8722]">
@@ -318,7 +310,6 @@ export default function NutraProductsGrid() {
                     {p.desc}
                   </p>
 
-                  {/* Bottom info row */}
                   <div className="mt-4 flex flex-wrap gap-2">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F7FAFD] border border-[#E9EEF5] text-[12px] font-semibold text-[#12233D]">
                       <span className="text-[10px] font-bold tracking-widest uppercase text-[#4B5563]">
@@ -334,7 +325,6 @@ export default function NutraProductsGrid() {
                     </span>
                   </div>
 
-                  {/* Action row */}
                   <div className="mt-5 pt-4 border-t border-[#E9EEF5] flex items-center justify-between">
                     <Link
                       to="/contact"
@@ -354,7 +344,6 @@ export default function NutraProductsGrid() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Show More / Show Less */}
         {products.length > PAGE_SIZE && (
           <div className="flex justify-center mt-10 gap-3 flex-wrap">
             {hasMore ? (
