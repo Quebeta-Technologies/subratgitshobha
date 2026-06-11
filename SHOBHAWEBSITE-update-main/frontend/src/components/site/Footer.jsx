@@ -52,7 +52,7 @@ export default function Footer() {
           <p className="mt-6 text-white/70 text-[14px] leading-relaxed max-w-md">
             A Dubai-based pharmaceutical manufacturer and exporter — making
             high-quality, affordable medicines available to people and
-            healthcare systems across Africa, Asia, and the Middle East.
+            healthcare systems across East&West Africa, SouthEast Asia, and the Middle East.
           </p>
         </div>
 

@@ -42,7 +42,7 @@ export default function ContactPartnerCTA() {
             <p className="mt-6 text-white/80 text-[15px] md:text-[16px] max-w-2xl leading-relaxed">
               We are actively expanding our distribution network across{" "}
               <span className="text-white font-semibold">
-                Africa, Southeast Asia, and the Middle East
+                East & West Africa, Southeast Asia, and the Middle East
               </span>
               . If you are a pharmaceutical distributor, hospital procurement
               team, or healthcare institution looking for a quality-focused

@@ -20,7 +20,7 @@ const stats = [
     icon: FlaskConical,
     color: "#9DCD4A",
     bg: "rgba(157,205,74,0.15)",
-    value: "44+",
+    value: "39+",
     label: "Products in Portfolio",
   },
   {
