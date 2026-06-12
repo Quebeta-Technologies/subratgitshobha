@@ -195,7 +195,7 @@ const products = [
     icon: Eye,
     color: "#0EA5E9",
     accent: "rgba(14,165,233,0.12)",
-    image: "/brand/400-400.jpg",
+    image: "/brand/opti.jpeg",
   },
 ];
 
