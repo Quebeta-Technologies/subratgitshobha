@@ -218,7 +218,7 @@ const products = [
     spec: "Granisetron Injection · 1mg/1ml",
     desc: "5-HT3 receptor antagonist for prevention of chemotherapy and radiotherapy-induced nausea and vomiting.",
     color: "#0738A6",
-    image: "/brand/graniteron.png",
+    image: "/brand/home.png",
   },
 
   // ── Biosimilars ───────────────────────────────────────
@@ -312,7 +312,7 @@ const products = [
     spec: "Amoxicillin + Clavulanic Acid · 16×1 Sachets",
     desc: "Convenient sachet formulation for patients requiring high-dose amoxicillin-clavulanate therapy with easy compliance.",
     color: "#2E7D32",
-    image: "/brand/kesar1125.png",
+    image: "/brand/home.png",
   },
   {
     cat: "Anti Biotics",
@@ -321,7 +321,7 @@ const products = [
     spec: "Amoxicillin + Clavulanic Acid · 16×1 Sachets",
     desc: "Sachet-form antibiotic combination for mid-range dosing. Ideal for patients who cannot swallow tablets.",
     color: "#2E7D32",
-    image: "/brand/kesar562.png",
+    image: "/brand/home.png",
   },
 
   // ── Injectables ───────────────────────────────────────
@@ -350,7 +350,7 @@ const products = [
     spec: "Esomeprazole Injection · 40mg Vial",
     desc: "Injectable PPI for patients unable to take oral medication. Controls gastric acid secretion effectively in critical care.",
     color: "#C62828",
-    image: "/brand/esopaz.png",
+    image: "/brand/home.png",
   },
   {
     cat: "Injectables",
@@ -359,7 +359,7 @@ const products = [
     spec: "Omeprazole Injection · 40mg Vial",
     desc: "Parenteral omeprazole for acid-peptic disorders in ICU and post-operative settings where oral therapy is not feasible.",
     color: "#C62828",
-    image: "/brand/ompra.png",
+    image: "/brand/home.png",
   },
   {
     cat: "Injectables",
