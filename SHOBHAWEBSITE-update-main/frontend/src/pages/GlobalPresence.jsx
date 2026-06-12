@@ -14,7 +14,6 @@ import WhatsAppFloat from "../components/site/WhatsAppFloat";
 /* ── DATA ─────────────────────────────────────────── */
 const COUNTRIES = [
   { code:"AE", flag:"🇦🇪", name:"UAE",          region:"Middle East",   status:"HQ",        lat:25.2,  lng:55.3  },
-  { code:"SA", flag:"🇸🇦", name:"Saudi Arabia", region:"Middle East",   status:"Active",    lat:23.9,  lng:45.1  },
   { code:"IQ", flag:"🇮🇶", name:"Iraq",         region:"Middle East",   status:"Target",    lat:33.2,  lng:43.7  },
   { code:"GH", flag:"🇬🇭", name:"Ghana",        region:"West Africa",   status:"Active",    lat:7.9,   lng:-1.0  },
   { code:"NG", flag:"🇳🇬", name:"Nigeria",      region:"West Africa",   status:"Expanding", lat:9.1,   lng:8.7   },
@@ -27,7 +26,7 @@ const COUNTRIES = [
 ];
 
 const ISO_STATUS = {
-  "784":"HQ", "682":"Active", "368":"Target",
+  "784":"HQ", "368":"Target",
   "288":"Active", "566":"Expanding", "404":"Expanding", "710":"Target",
   "116":"Expanding", "704":"Active", "608":"Target", "104":"Target",
 };
@@ -119,7 +118,7 @@ function GlobalWorldMap() {
   };
 
   const ISO_STATUS_LOCAL = {
-    "784":"HQ","682":"Active","368":"Target",
+    "784":"HQ","368":"Target",
     "288":"Active","566":"Expanding","404":"Expanding","710":"Target",
     "116":"Expanding","704":"Active","608":"Target","104":"Target",
   };
@@ -409,7 +408,7 @@ function GhanaDeepDive() {
           </h2>
           <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
             Distribution Partners — Accra (HQ) · Kumasi · Tamale. Two companies jointly driven by four
-            equal partners, each holding 25% equity. Shobha Healthcare's founder is personally
+            equal partners. Shobha Healthcare's founder is personally
             co-invested in Ghana's healthcare access.
           </p>
         </div>
