@@ -473,7 +473,7 @@ function GhanaDeepDive() {
 function PartnershipOpps() {
   const opps = [
     { icon:Beaker,   title:"Diabetic Insulin Portfolios", color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Partners supplying insulin and diabetes management products to expand our biologicals and critical care range." },
-    { icon:Pill,     title:"Anaesthetic Products",        color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Surgical and critical care anaesthetics to broaden our hospital-facing portfolio." },
+    { icon:Pill,     title:"Anesthetic Products",        color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Surgical and critical care anaesthetics to broaden our hospital-facing portfolio." },
     { icon:Sparkles, title:"Innovative Molecules",        color:"#F2C14E", bg:"rgba(242,193,78,0.18)", desc:"Novel and specialty pharmaceutical molecules across therapeutic areas where we are building our clinical presence." },
     { icon:Heart,    title:"Critical Care Therapies",     color:"#E84D6C", bg:"rgba(232,77,108,0.10)", desc:"Additional critical care and hospital pharmacy products to deepen our institutional healthcare presence." },
   ];
