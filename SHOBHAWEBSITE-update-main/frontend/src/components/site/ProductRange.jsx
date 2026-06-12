@@ -332,7 +332,7 @@ const products = [
     spec: "Artesunate Injection · 60mg / 120mg Vial",
     desc: "Fast-acting antimalarial injection for severe and complicated malaria. Proven efficacy against Plasmodium falciparum.",
     color: "#C62828",
-    image: "/brand/shobha-sunate.png",
+    image: "/brand/Shobh 28.png",
   },
   {
     cat: "Injectables",
