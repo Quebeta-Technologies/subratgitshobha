@@ -142,7 +142,7 @@ export default function AboutCompanyOverview() {
 
             <div className="mt-7 space-y-4">
               <p className="text-[#4B5563] text-[15.5px] leading-relaxed">
-                Founded in 2025 and based in Dubai,{" "}
+                {" "}
                 <span className="text-[#12233D] font-semibold">
                   Shobha Healthcare
                 </span>{" "}
