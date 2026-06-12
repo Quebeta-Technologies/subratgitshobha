@@ -13,8 +13,6 @@ import WhatsAppFloat from "../components/site/WhatsAppFloat";
 
 /* ── DATA ─────────────────────────────────────────── */
 const COUNTRIES = [
-  { code:"AE", flag:"🇦🇪", name:"UAE",          region:"Middle East",   status:"HQ",        lat:25.2,  lng:55.3  },
-  { code:"IQ", flag:"🇮🇶", name:"Iraq",         region:"Middle East",   status:"Target",    lat:33.2,  lng:43.7  },
   { code:"GH", flag:"🇬🇭", name:"Ghana",        region:"West Africa",    status:"Active", lat:7.9,   lng:-1.0  },
   { code:"NG", flag:"🇳🇬", name:"Nigeria",      region:"West Africa",    status:"Active", lat:9.1,   lng:8.7   },
   { code:"BF", flag:"🇧🇫", name:"Burkina Faso", region:"West Africa",    status:"Active", lat:12.2,  lng:-1.6  },
@@ -124,14 +122,12 @@ function GlobalWorldMap() {
     PALETTE[Math.abs(parseInt(isoId || "0")) % PALETTE.length];
 
   const STATUS_MAP = {
-    HQ:        { dot:"#E6A800", fill:"#FFD740", ring:"rgba(242,193,78,0.25)"  },
     Active:    { dot:"#5AA000", fill:"#8FD14F", ring:"rgba(157,205,74,0.25)"  },
     Expanding: { dot:"#0080C0", fill:"#62C7F5", ring:"rgba(98,199,245,0.25)"  },
     Target:    { dot:"#C8003C", fill:"#FF6680", ring:"rgba(232,77,108,0.25)"  },
   };
 
   const ISO_STATUS_LOCAL = {
-    "784":"HQ","368":"Target",
     "288":"Active","566":"Active","404":"Active","710":"Target",
     "116":"Expanding","704":"Active","608":"Target","104":"Target",
     "854":"Active","768":"Active","204":"Active","686":"Active",
@@ -145,7 +141,6 @@ function GlobalWorldMap() {
     { name:"Central Africa",color:"#0080C0", icon:"🌐", subtitle:"5 Countries"  },
     { name:"East Africa",   color:"#E6A800", icon:"🌍", subtitle:"3 Countries"  },
     { name:"Southeast Asia",color:"#7A1F7A", icon:"🌏", subtitle:"4 Countries"  },
-    { name:"Middle East",   color:"#C8003C", icon:"🕌", subtitle:"UAE & GCC"    },
   ];
 
   return (
@@ -273,7 +268,7 @@ function GlobalWorldMap() {
       {/* Region cards — 4 columns */}
       <div className="bg-[#F7FAFD] py-12">
         <div className="container-x mx-auto">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {regions.map((r, i) => {
               const list = COUNTRIES.filter(c => c.region === r.name);
               return (
