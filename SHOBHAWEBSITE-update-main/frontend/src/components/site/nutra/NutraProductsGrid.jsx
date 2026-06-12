@@ -135,7 +135,7 @@ const products = [
     icon: Sparkles,
     color: "#14B8A6",
     accent: "rgba(20,184,166,0.12)",
-    image: "/brand/400-400.jpg",
+    image: "/brand/81.png",
   },
   {
     sno: 11,
@@ -159,7 +159,7 @@ const products = [
     icon: Heart,
     color: "#E11D48",
     accent: "rgba(225,29,72,0.12)",
-    image: "/brand/400-400.jpg",
+    image: "/brand/om3.png",
   },
   {
     sno: 13,
@@ -183,7 +183,7 @@ const products = [
     icon: Droplets,
     color: "#62C7F5",
     accent: "rgba(98,199,245,0.15)",
-    image: "/brand/400-400.jpg",
+    image: "/brand/ors.png",
   },
   {
     sno: 15,
