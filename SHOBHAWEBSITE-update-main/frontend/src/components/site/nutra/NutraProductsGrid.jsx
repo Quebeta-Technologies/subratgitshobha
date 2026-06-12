@@ -39,7 +39,7 @@ const products = [
     icon: Sparkles,
     color: "#7A1F7A",
     accent: "rgba(122,31,122,0.12)",
-    image: "/brand/400-400.jpg",
+    image: "/brand/az.png",
   },
   {
     sno: 3,
@@ -51,7 +51,7 @@ const products = [
     icon: Droplets,
     color: "#C2410C",
     accent: "rgba(194,65,12,0.12)",
-    image: "/brand/400-400.jpg",
+    image: "/brand/ip.png",
   },
   {
     sno: 4,
