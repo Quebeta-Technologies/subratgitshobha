@@ -137,9 +137,7 @@ export default function NutraIntro() {
                 <span className="text-[#12233D] font-semibold">
                   GMP standards
                 </span>{" "}
-                using pure, validated ingredients. Honest labelling — what's on
-                the pack is exactly what's inside. No hidden fillers, no
-                inflated dosages, no shortcuts.
+                using pure, validated ingredients. 
               </p>
               <p className="text-[#4B5563] text-[15.5px] leading-relaxed">
                 From a single capsule of iron to multi-ingredient combinations

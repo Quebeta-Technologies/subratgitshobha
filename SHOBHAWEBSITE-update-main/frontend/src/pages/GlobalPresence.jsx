@@ -304,7 +304,7 @@ function GlobalWorldMap() {
 function PartnerNetwork() {
   const partners = [
     { icon:Globe2,      name:"Shobha Global",          role:"International Partner",    color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Supports Shobha Healthcare's global expansion strategy, market access planning, and international business development across Africa, Asia, and the Middle East." },
-    { icon:Pill,        name:"Trident Pharmaceuticals", role:"Distribution Collaborator",color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Strengthens supply chain capabilities and broadens our product portfolio. Trident's expertise and industry relationships complement Shobha's manufacturing and export operations." },
+    { icon:Pill,        name:"dossmegt Pharmaceuticals", role:"Distribution Collaborator",color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Strengthens supply chain capabilities and broadens our product portfolio. Trident's expertise and industry relationships complement Shobha's manufacturing and export operations." },
     { icon:Stethoscope, name:"TIL Healthcare",          role:"Healthcare Collaborator",  color:"#7A1F7A", bg:"rgba(122,31,122,0.10)", desc:"Established collaborator with a strong track record in institutional pharmaceutical supply. TIL Healthcare's experience across hospital channels adds depth to Shobha's distribution capabilities." },
   ];
   return (
@@ -408,8 +408,7 @@ function GhanaDeepDive() {
           </h2>
           <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
             Distribution Partners — Accra (HQ) · Kumasi · Tamale. Two companies jointly driven by four
-            equal partners. Shobha Healthcare's founder is personally
-            co-invested in Ghana's healthcare access.
+            equal partners.
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
