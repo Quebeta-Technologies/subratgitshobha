@@ -27,7 +27,7 @@ const team = [
     color: "#E84D6C",
     name: "Prarthana Maheshwari",
     role: "Director, Operations and Planning",
-    desc: "Presently serving as Director – Operations & Planning at Shobha Healthcare, my professional journey began in the corporate world, where I built experience across data analytics, business strategy, and operational excellence within multinational organizations. Today, I bring that structured, data-driven approach to our family-owned pharmaceutical business, where I focus on driving operational efficiency, strategic growth, and expanding access to high-quality healthcare products across emerging markets. With a blend of corporate discipline and entrepreneurial vision, I am passionate about building scalable healthcare businesses that create meaningful impact while maintaining the highest standards of quality and reliability.",
+    desc: "Director – Operations & Planning at Shobha Healthcare, focused on driving operational excellence, strategic growth, and expanding access to quality healthcare products. Leveraging expertise in business strategy and operations to build scalable, impact-driven healthcare solutions.",
     tags: ["Operations", "Strategy", "Planning"],
     social: {
       linkedin: "https://linkedin.com",
