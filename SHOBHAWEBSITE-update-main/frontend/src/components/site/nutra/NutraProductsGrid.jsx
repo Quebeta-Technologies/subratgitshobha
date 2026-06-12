@@ -39,7 +39,7 @@ const products = [
     icon: Sparkles,
     color: "#7A1F7A",
     accent: "rgba(122,31,122,0.12)",
-    image: "/brand/nutra-az-complete.png",
+    image: "/brand/400-400.jpg",
   },
   {
     sno: 3,
@@ -51,7 +51,7 @@ const products = [
     icon: Droplets,
     color: "#C2410C",
     accent: "rgba(194,65,12,0.12)",
-    image: "/brand/nutra-iron-plus.png",
+    image: "/brand/400-400.jpg",
   },
   {
     sno: 4,
@@ -135,7 +135,7 @@ const products = [
     icon: Sparkles,
     color: "#14B8A6",
     accent: "rgba(20,184,166,0.12)",
-    image: "/brand/nutra-8in1.png",
+    image: "/brand/400-400.jpg",
   },
   {
     sno: 11,
@@ -159,7 +159,7 @@ const products = [
     icon: Heart,
     color: "#E11D48",
     accent: "rgba(225,29,72,0.12)",
-    image: "/brand/nutra-omega3.png",
+    image: "/brand/400-400.jpg",
   },
   {
     sno: 13,
@@ -183,7 +183,7 @@ const products = [
     icon: Droplets,
     color: "#62C7F5",
     accent: "rgba(98,199,245,0.15)",
-    image: "/brand/nutra-ors-electrolyte.png",
+    image: "/brand/400-400.jpg",
   },
   {
     sno: 15,
@@ -195,7 +195,7 @@ const products = [
     icon: Eye,
     color: "#0EA5E9",
     accent: "rgba(14,165,233,0.12)",
-    image: "/brand/nutra-opti-vit.png",
+    image: "/brand/400-400.jpg",
   },
 ];
 
