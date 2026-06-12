@@ -23,7 +23,7 @@ const team = [
     },
   },
   {
-    photo: "/brand/imagephoto.png",
+    photo: "/brand/pran.jpg",
     color: "#E84D6C",
     name: "Prarthana Maheshwari",
     role: "Business Development & Operations",
