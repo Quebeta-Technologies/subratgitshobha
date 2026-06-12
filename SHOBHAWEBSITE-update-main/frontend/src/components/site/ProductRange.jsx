@@ -200,7 +200,7 @@ const products = [
     spec: "Doxorubicin Injection · 50mg IV",
     desc: "Anthracycline chemotherapy for breast, ovarian, and haematological cancers. Used in multiple combination regimens.",
     color: "#0738A6",
-    image: "/brand/doxacort.png",
+    image: "/brand/image.png",
   },
   {
     cat: "Oncology",
