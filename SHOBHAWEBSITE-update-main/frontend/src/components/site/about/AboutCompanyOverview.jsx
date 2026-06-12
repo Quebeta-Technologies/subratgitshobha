@@ -37,7 +37,7 @@ const points = [
     color: "#E84D6C",
     bg: "rgba(232,77,108,0.12)",
     title: "Long-Term Partnership",
-    desc: "We invest in our distribution partners, support them, and grow alongside them. In Ghana, we co-own the companies we work with.",
+    desc: "We invest in our distribution partners, support them, and grow alongside them.",
   },
 ];
 
