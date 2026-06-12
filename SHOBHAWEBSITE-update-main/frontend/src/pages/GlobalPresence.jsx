@@ -317,7 +317,7 @@ function GlobalWorldMap() {
 function PartnerNetwork() {
   const partners = [
     { icon:Globe2,      name:"Shobha Global",          role:"International Partner",    color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Supports Shobha Healthcare's global expansion strategy, market access planning, and international business development across Africa, Asia, and the Middle East." },
-    { icon:Pill,        name:"dossmegt Pharmaceuticals", role:"Distribution Collaborator",color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Strengthens supply chain capabilities and broadens our product portfolio. Trident's expertise and industry relationships complement Shobha's manufacturing and export operations." },
+    { icon:Pill,        name:"Medisol Lifescience Pvt. Ltd.", role:"Distribution Collaborator",color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Our primary manufacturing partner for MDI inhalers and pharmaceutical products. Medisol Lifescience operates a state-of-the-art production facility in Gujarat — certified to both EU-GMP and WHO-GMP standards. Their precision-controlled manufacturing environments and rigorous quality systems ensure every product bearing the Shobha name meets the highest international benchmarks." },
     { icon:Stethoscope, name:"TIL Healthcare",          role:"Healthcare Collaborator",  color:"#7A1F7A", bg:"rgba(122,31,122,0.10)", desc:"Established collaborator with a strong track record in institutional pharmaceutical supply. TIL Healthcare's experience across hospital channels adds depth to Shobha's distribution capabilities." },
   ];
   return (
@@ -352,17 +352,15 @@ function PartnerNetwork() {
                   <Factory className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-display font-semibold text-[#12233D] text-xl md:text-2xl">Medisol Lifescience Pvt. Ltd.</h3>
+                  <h3 className="font-display font-semibold text-[#12233D] text-xl md:text-2xl">dossmegt Pharmaceuticals</h3>
                   <div className="flex items-center gap-1.5 mt-1 text-[12.5px] text-[#4B5563]">
-                    <MapPin className="w-3.5 h-3.5 text-[#0738A6]" /> Valsad, Gujarat — 396 105, India
+                    <MapPin className="w-3.5 h-3.5 text-[#0738A6]" /> Distribution Collaborator
                   </div>
                 </div>
               </div>
               <p className="mt-4 text-[#4B5563] text-[14.5px] leading-relaxed">
-                Our primary manufacturing partner for <span className="text-[#12233D] font-semibold">MDI inhalers</span> and
-                pharmaceutical products. Medisol Lifescience operates a state-of-the-art production facility in Gujarat —
-                certified to both EU-GMP and WHO-GMP standards. Their precision-controlled manufacturing environments and
-                rigorous quality systems ensure every product bearing the Shobha name meets the highest international benchmarks.
+                Strengthens supply chain capabilities and broadens our product portfolio. dossmegt's expertise and
+                industry relationships complement Shobha's manufacturing and export operations.
               </p>
             </div>
             <div className="lg:col-span-5 grid grid-cols-2 gap-3">
