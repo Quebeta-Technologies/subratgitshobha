@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { api, formatApiError } from "../../../lib/api";
 import {
   Loader2,
   Send,
@@ -14,6 +13,8 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+const WEB3FORMS_ACCESS_KEY = "f00c3c7f-4c05-45ed-ae04-0e5f05d3c4a3";
+
 const I_AM_A_OPTIONS = [
   "Distributor",
   "Hospital / Healthcare Institution",
@@ -26,7 +27,7 @@ const PRODUCT_INTERESTS = [
   { id: "mdi", label: "MDI Inhalers" },
   { id: "oncology", label: "Oncology" },
   { id: "critical", label: "Critical Care" },
-  
+
   { id: "nutraceuticals", label: "Nutraceuticals" },
   { id: "full", label: "Full Product Range" },
 ];
@@ -70,19 +71,36 @@ export default function ContactForm() {
         ? `Products of interest: ${interestedProducts}\n\n${form.message}`
         : form.message;
 
-      await api.post("/inquiries", {
-        name: form.name,
-        company: form.company,
-        country: form.country,
-        email: form.email,
-        phone: form.phone,
-        inquiry_type: form.inquiry_type,
-        message: messageWithProducts,
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: "New Enquiry from Shobha Healthcare Website",
+          from_name: "Shobha Healthcare Website",
+          name: form.name,
+          company: form.company,
+          country: form.country,
+          email: form.email,
+          phone: form.phone,
+          inquiry_type: form.inquiry_type,
+          message: messageWithProducts,
+        }),
       });
-      setSubmitted(true);
-      toast.success("Thank you. Our team will be in touch within 24 hours.");
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitted(true);
+        toast.success("Thank you. Our team will be in touch within 24 hours.");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     } catch (err) {
-      toast.error(formatApiError(err));
+      toast.error("Network error. Please check your connection and try again.");
     } finally {
       setSubmitting(false);
     }
