@@ -98,19 +98,7 @@ export default function AboutFounderProfile() {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 text-[13px]">
-                <div className="w-8 h-8 rounded-lg bg-[#9DCD4A]/20 flex items-center justify-center">
-                  <MapPin className="w-4 h-4 text-[#9DCD4A]" />
-                </div>
-                <div>
-                  <div className="text-[10px] uppercase tracking-widest text-white/50 font-bold">
-                    Co-Founded
-                  </div>
-                  <div className="text-white font-display font-medium">
-                    Greenwich Therapeutics &amp;Ghana
-                  </div>
-                </div>
-              </div>
+              
             </motion.div>
           </div>
 
