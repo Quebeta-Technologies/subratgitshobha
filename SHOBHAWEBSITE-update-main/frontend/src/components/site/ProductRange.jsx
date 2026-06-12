@@ -45,7 +45,7 @@ const products = [
     spec: "Salbutamol Inhaler (Non Alcoholic) · 200 Doses",
     desc: "Fast-acting bronchodilator for relief of acute asthma and COPD symptoms. Non-alcoholic formulation for better tolerability.",
     color: "#62C7F5",
-    image: "/brand/sal-beta.png",
+    image: "/brand/image I.png",
   },
   {
     cat: "MDI Inhaler",
@@ -90,7 +90,7 @@ const products = [
     spec: "Beclometasone + Salbutamol Inhaler · 200 Doses",
     desc: "Fixed-dose combination of a corticosteroid and short-acting bronchodilator for asthma maintenance and relief.",
     color: "#62C7F5",
-    image: "/brand/salcort.png",
+    image: "/brand/image ii.png",
   },
   {
     cat: "MDI Inhaler",
@@ -164,7 +164,7 @@ const products = [
     spec: "Osimertinib Tablets · 40mg / 80mg · 30's",
     desc: "Third-generation EGFR inhibitor for non-small cell lung cancer with T790M mutation. Once-daily targeted therapy.",
     color: "#0738A6",
-    image: "/brand/otinib.png",
+    image: "/brand/image iiiiii.png",
   },
   {
     cat: "Oncology",
@@ -182,7 +182,7 @@ const products = [
     spec: "Ixazomib Capsules · 3 Capsules",
     desc: "Oral proteasome inhibitor for relapsed/refractory multiple myeloma in combination with lenalidomide and dexamethasone.",
     color: "#0738A6",
-    image: "/brand/simlaro.png",
+    image: "/brand/image iiiiiii.png",
   },
   {
     cat: "Oncology",
@@ -368,7 +368,7 @@ const products = [
     spec: "Meropenem Injection · 500mg / 1gm Vial",
     desc: "Broad-spectrum carbapenem antibiotic for life-threatening infections including sepsis, pneumonia, and meningitis.",
     color: "#C62828",
-    image: "/brand/keronim.png",
+    image: "/brand/image iii.png",
   },
 
   // ── Cephalosporins ────────────────────────────────────
