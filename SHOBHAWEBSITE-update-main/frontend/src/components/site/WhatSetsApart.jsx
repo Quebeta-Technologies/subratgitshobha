@@ -26,8 +26,8 @@ const items = [
     icon: Sprout,
     color: "#9DCD4A",
     bg: "rgba(157,205,74,0.15)",
-    title: "Pure Ingredients. Rigorous Standards.",
-    desc: "Every raw material comes from approved, validated suppliers. Every ingredient is tested before production begins. What is on the label is exactly what is inside — transparent, traceable, and trustworthy.",
+    title: "Pure Active Ingredients",
+    desc: "We partner with carefully selected and qualified suppliers for all active ingredients and excipients. Our vendor qualification process ensures that every material meets the highest standards of quality, safety, and regulatory compliance before entering production.",
   },
   {
     icon: DollarSign,
