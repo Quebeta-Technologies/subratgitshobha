@@ -36,7 +36,7 @@ const team = [
     },
   },
   {
-    photo: null,
+    photo: "/brand/Frame 799.jpg",
     icon: FlaskConical,
     color: "#7A1F7A",
     bg: "rgba(122,31,122,0.12)",

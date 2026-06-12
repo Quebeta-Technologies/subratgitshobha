@@ -25,7 +25,7 @@ const products = [
     tabKey: "MDI Inhalers",
     name: "BD-CORT 100mcg",
     spec: "Beclometasone Dipropionate · 200 Doses",
-    desc: "Mid-strength inhaled corticosteroid for moderate asthma maintenance. Part of the BD-ASMA range.",
+    desc: "Mid-strength inhaled corticosteroid for moderate asthma maintenance. Part of the BD-CORT range.",
     color: "#62C7F5",
     image: "/brand/bd 100.png",
   },
