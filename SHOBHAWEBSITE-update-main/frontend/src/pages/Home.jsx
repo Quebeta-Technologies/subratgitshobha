@@ -24,7 +24,7 @@ export default function Home() {
   const defaultSlides = [
     {
       id: 1,
-      image_url: "/brand/hero-main.png",
+      image_url: "/brand/h1.png",
       eyebrow: "WHO-GMP Certified",
       headline: "Good Medicine Should Be Within Everyone's Reach",
       subheadline: "Shobha Healthcare delivers high-quality pharmaceutical products across UAE and global markets.",
