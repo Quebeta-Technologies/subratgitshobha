@@ -209,7 +209,7 @@ const products = [
     spec: "Rituximab Injection · 100mg/10ml",
     desc: "Anti-CD20 monoclonal antibody for B-cell lymphomas, CLL, and rheumatoid arthritis. Targeted biological therapy.",
     color: "#0738A6",
-    image: "/brand/ritumab.png",
+    image: "/brand/image (1).png",
   },
   {
     cat: "Oncology",
