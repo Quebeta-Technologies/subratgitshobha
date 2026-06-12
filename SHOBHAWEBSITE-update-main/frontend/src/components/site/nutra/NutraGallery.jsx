@@ -23,7 +23,7 @@ const photos = [
   },
   {
     src: "/brand/ga12.jpg",
-    title: "Pure Ingredients",
+    title: "Pure Active Ingredients",
     caption: "GMP-manufactured · honestly labelled · clinically validated",
     icon: Sparkles,
     color: "#F2C14E",

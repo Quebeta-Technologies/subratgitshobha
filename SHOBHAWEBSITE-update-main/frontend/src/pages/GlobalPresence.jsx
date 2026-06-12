@@ -356,8 +356,8 @@ function PartnerNetwork() {
               {[
                 { v:"EU-GMP",  l:"Certified", c:"#0738A6", bg:"rgba(7,56,166,0.10)"   },
                 { v:"WHO-GMP", l:"Compliant", c:"#9DCD4A", bg:"rgba(157,205,74,0.15)" },
-                { v:"Gujarat", l:"India",     c:"#F2C14E", bg:"rgba(242,193,78,0.18)" },
-                { v:"MDI",     l:"Specialist",c:"#7A1F7A", bg:"rgba(122,31,122,0.10)" },
+                { v:"Mumbai", l:"India",     c:"#F2C14E", bg:"rgba(242,193,78,0.18)" },
+                { v:"MDI",     l:"Collaborator",c:"#7A1F7A", bg:"rgba(122,31,122,0.10)" },
               ].map(s => (
                 <div key={s.l} className="bg-white border border-[#E9EEF5] rounded-2xl p-4 text-center">
                   <div className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.15em] uppercase mb-2"

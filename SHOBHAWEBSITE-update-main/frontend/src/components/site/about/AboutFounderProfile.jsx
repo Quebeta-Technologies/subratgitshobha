@@ -160,9 +160,9 @@ export default function AboutFounderProfile() {
             </p>
 
             <p className="mt-5 text-white/75 text-[15px] leading-relaxed">
-              In Ghana, Shobha has co-invested in two distribution companies —{" "}
+              In Ghana,{" "}
               <span className="text-white font-semibold">
-                Greenwich Therapeutics
+                United Pharma & Greenwich Therapeutics
               </span>{" "}
               {" "}
               <span className="text-white font-semibold"></span> —

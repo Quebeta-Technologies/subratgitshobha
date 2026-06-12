@@ -30,7 +30,7 @@ export default function GhanaNetwork() {
                 Greenwich Therapeutics — Accra, Ghana
               </h2>
               <p className="mt-5 text-white/80 text-[15px] leading-relaxed max-w-xl">
-                Co-owned by our founder (25% equity stake), these two
+                these two
                 distribution companies cover private market, government
                 hospitals, and all major medical stores across Ghana — Accra,
                 Kumasi, and Tamale.
