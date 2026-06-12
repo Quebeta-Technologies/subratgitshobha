@@ -81,7 +81,7 @@ export default function AboutSection() {
             <span className="text-[#0738A6]">Within Everyone's Reach</span>
           </h2>
           <p className="mt-6 text-[#4B5563] text-[15.5px] leading-relaxed">
-            Founded in 2025 and based in Dubai, Shobha Healthcare is a
+           Shobha Healthcare is a
             pharmaceutical manufacturer and exporter with one clear purpose —
             to make high-quality, affordable medicines available to the people
             and healthcare systems that need them most, across Africa, Asia,
