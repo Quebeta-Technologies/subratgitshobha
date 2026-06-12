@@ -352,7 +352,7 @@ function PartnerNetwork() {
                   <Factory className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-display font-semibold text-[#12233D] text-xl md:text-2xl">dossmegt Pharmaceuticals</h3>
+                  <h3 className="font-display font-semibold text-[#12233D] text-xl md:text-2xl">Dossmegt Pharmaceuticals</h3>
                   <div className="flex items-center gap-1.5 mt-1 text-[12.5px] text-[#4B5563]">
                     <MapPin className="w-3.5 h-3.5 text-[#0738A6]" /> Distribution Collaborator
                   </div>
