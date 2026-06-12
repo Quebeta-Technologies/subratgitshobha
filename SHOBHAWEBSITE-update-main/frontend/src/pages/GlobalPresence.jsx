@@ -15,10 +15,23 @@ import WhatsAppFloat from "../components/site/WhatsAppFloat";
 const COUNTRIES = [
   { code:"AE", flag:"🇦🇪", name:"UAE",          region:"Middle East",   status:"HQ",        lat:25.2,  lng:55.3  },
   { code:"IQ", flag:"🇮🇶", name:"Iraq",         region:"Middle East",   status:"Target",    lat:33.2,  lng:43.7  },
-  { code:"GH", flag:"🇬🇭", name:"Ghana",        region:"West Africa",   status:"Active",    lat:7.9,   lng:-1.0  },
-  { code:"NG", flag:"🇳🇬", name:"Nigeria",      region:"West Africa",   status:"Expanding", lat:9.1,   lng:8.7   },
-  { code:"KE", flag:"🇰🇪", name:"Kenya",        region:"East Africa",   status:"Expanding", lat:-0.2,  lng:37.9  },
-  { code:"ZA", flag:"🇿🇦", name:"South Africa", region:"East Africa",   status:"Target",    lat:-30.6, lng:22.9  },
+  { code:"GH", flag:"🇬🇭", name:"Ghana",        region:"West Africa",    status:"Active", lat:7.9,   lng:-1.0  },
+  { code:"NG", flag:"🇳🇬", name:"Nigeria",      region:"West Africa",    status:"Active", lat:9.1,   lng:8.7   },
+  { code:"BF", flag:"🇧🇫", name:"Burkina Faso", region:"West Africa",    status:"Active", lat:12.2,  lng:-1.6  },
+  { code:"TG", flag:"🇹🇬", name:"Togo",         region:"West Africa",    status:"Active", lat:8.6,   lng:0.8   },
+  { code:"BJ", flag:"🇧🇯", name:"Benin",        region:"West Africa",    status:"Active", lat:9.3,   lng:2.3   },
+  { code:"SN", flag:"🇸🇳", name:"Senegal",      region:"West Africa",    status:"Active", lat:14.5,  lng:-14.5 },
+  { code:"CI", flag:"🇨🇮", name:"Ivory Coast",  region:"West Africa",    status:"Active", lat:7.5,   lng:-5.5  },
+  { code:"NE", flag:"🇳🇪", name:"Niger",        region:"West Africa",    status:"Active", lat:17.6,  lng:8.1   },
+  { code:"MR", flag:"🇲🇷", name:"Mauritania",   region:"West Africa",    status:"Active", lat:20.0,  lng:-10.9 },
+  { code:"CM", flag:"🇨🇲", name:"Cameroon",     region:"Central Africa", status:"Active", lat:7.4,   lng:12.4  },
+  { code:"TD", flag:"🇹🇩", name:"Chad",         region:"Central Africa", status:"Active", lat:15.5,  lng:18.7  },
+  { code:"GA", flag:"🇬🇦", name:"Gabon",        region:"Central Africa", status:"Active", lat:-0.8,  lng:11.6  },
+  { code:"GQ", flag:"🇬🇶", name:"Equatorial Guinea", region:"Central Africa", status:"Active", lat:1.6, lng:10.3 },
+  { code:"AO", flag:"🇦🇴", name:"Angola",       region:"Central Africa", status:"Active", lat:-11.2, lng:17.9  },
+  { code:"KE", flag:"🇰🇪", name:"Kenya",        region:"East Africa",    status:"Active", lat:-0.2,  lng:37.9  },
+  { code:"UG", flag:"🇺🇬", name:"Uganda",       region:"East Africa",    status:"Active", lat:1.4,   lng:32.3  },
+  { code:"TZ", flag:"🇹🇿", name:"Tanzania",     region:"East Africa",    status:"Active", lat:-6.4,  lng:34.9  },
   { code:"KH", flag:"🇰🇭", name:"Cambodia",     region:"Southeast Asia",status:"Expanding", lat:12.6,  lng:104.9 },
   { code:"VN", flag:"🇻🇳", name:"Vietnam",      region:"Southeast Asia",status:"Active",    lat:14.1,  lng:108.3 },
   { code:"PH", flag:"🇵🇭", name:"Philippines",  region:"Southeast Asia",status:"Target",    lat:12.9,  lng:121.8 },
@@ -119,15 +132,20 @@ function GlobalWorldMap() {
 
   const ISO_STATUS_LOCAL = {
     "784":"HQ","368":"Target",
-    "288":"Active","566":"Expanding","404":"Expanding","710":"Target",
+    "288":"Active","566":"Active","404":"Active","710":"Target",
     "116":"Expanding","704":"Active","608":"Target","104":"Target",
+    "854":"Active","768":"Active","204":"Active","686":"Active",
+    "384":"Active","562":"Active","478":"Active",
+    "120":"Active","148":"Active","266":"Active","226":"Active","24":"Active",
+    "800":"Active","834":"Active",
   };
 
   const regions = [
-    { name:"West Africa",   color:"#5AA000", icon:"🌍", subtitle:"Ghana & Nigeria"  },
-    { name:"East Africa",   color:"#E6A800", icon:"🌐", subtitle:"Kenya & More"     },
-    { name:"Southeast Asia",color:"#0080C0", icon:"🌏", subtitle:"4 Countries"      },
-    { name:"Middle East",   color:"#7A1F7A", icon:"🕌", subtitle:"UAE & GCC"        },
+    { name:"West Africa",   color:"#5AA000", icon:"🌍", subtitle:"9 Countries"  },
+    { name:"Central Africa",color:"#0080C0", icon:"🌐", subtitle:"5 Countries"  },
+    { name:"East Africa",   color:"#E6A800", icon:"🌍", subtitle:"3 Countries"  },
+    { name:"Southeast Asia",color:"#7A1F7A", icon:"🌏", subtitle:"4 Countries"  },
+    { name:"Middle East",   color:"#C8003C", icon:"🕌", subtitle:"UAE & GCC"    },
   ];
 
   return (
@@ -255,7 +273,7 @@ function GlobalWorldMap() {
       {/* Region cards — 4 columns */}
       <div className="bg-[#F7FAFD] py-12">
         <div className="container-x mx-auto">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {regions.map((r, i) => {
               const list = COUNTRIES.filter(c => c.region === r.name);
               return (
