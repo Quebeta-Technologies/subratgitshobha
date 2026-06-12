@@ -415,7 +415,7 @@ function GhanaDeepDive() {
         <div className="max-w-3xl mb-12 md:mb-14">
           <span className="eyebrow">Deep Dive · 🇬🇭 Ghana</span>
           <h2 className="mt-2 font-display font-semibold text-[#12233D] text-2xl sm:text-3xl lg:text-[36px] tracking-tight leading-[1.15]">
-            Greenwich Therapeutics &amp; <span className="text-[#9DCD4A]">United Pharma</span>
+            <span className="text-[#9DCD4A]">United Pharma</span> &amp; Greenwich Therapeutics 
           </h2>
           <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
             Distribution Partners — Accra (HQ) · Kumasi · Tamale. Two companies jointly driven by four
@@ -441,7 +441,7 @@ function GhanaDeepDive() {
         <div className="grid md:grid-cols-2 gap-5 mb-5">
           {[
             { title:"Greenwich Therapeutics", tag:"Private Market", color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Brand building, pharmacy distribution, and prescription channel. Direct relationships with retail pharmacies and prescribers across Ghana." },
-            { title:"Pharma",          tag:"Public Sector",  color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Government institutions, public hospitals, and tender business. GMP-compliant warehouse storage and GDP-compliant shipment across all branches." },
+            { title:"United Pharma",          tag:"Public Sector",  color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Government institutions, public hospitals, and tender business. GMP-compliant warehouse storage and GDP-compliant shipment across all branches." },
           ].map((c, i) => (
             <motion.div key={c.title} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
               viewport={{ once:true }} transition={{ duration:0.5, delay: i * 0.1 }}
