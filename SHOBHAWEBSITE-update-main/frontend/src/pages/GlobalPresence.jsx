@@ -405,7 +405,7 @@ function GhanaDeepDive() {
         <div className="max-w-3xl mb-12 md:mb-14">
           <span className="eyebrow">Deep Dive · 🇬🇭 Ghana</span>
           <h2 className="mt-2 font-display font-semibold text-[#12233D] text-2xl sm:text-3xl lg:text-[36px] tracking-tight leading-[1.15]">
-            Greenwich Therapeutics &amp; <span className="text-[#9DCD4A]">Pharma</span>
+            Greenwich Therapeutics &amp; <span className="text-[#9DCD4A]">United Pharma</span>
           </h2>
           <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
             Distribution Partners — Accra (HQ) · Kumasi · Tamale. Two companies jointly driven by four
