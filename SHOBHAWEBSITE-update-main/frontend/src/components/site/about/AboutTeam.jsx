@@ -26,9 +26,9 @@ const team = [
     photo: "/brand/pran.jpg",
     color: "#E84D6C",
     name: "Prarthana Maheshwari",
-    role: "Business Development & Operations",
-    desc: "Leads business development, partner onboarding, and day-to-day operations at Shobha Healthcare. Primary contact for new partnerships and institutional enquiries.",
-    tags: ["Business Dev", "Operations", "Partnerships"],
+    role: "Director, Operations and Planning",
+    desc: "Presently serving as Director – Operations & Planning at Shobha Healthcare, my professional journey began in the corporate world, where I built experience across data analytics, business strategy, and operational excellence within multinational organizations. Today, I bring that structured, data-driven approach to our family-owned pharmaceutical business, where I focus on driving operational efficiency, strategic growth, and expanding access to high-quality healthcare products across emerging markets. With a blend of corporate discipline and entrepreneurial vision, I am passionate about building scalable healthcare businesses that create meaningful impact while maintaining the highest standards of quality and reliability.",
+    tags: ["Operations", "Strategy", "Planning"],
     social: {
       linkedin: "https://linkedin.com",
       instagram: "https://instagram.com",
