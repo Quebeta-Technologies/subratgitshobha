@@ -356,8 +356,8 @@ function PartnerNetwork() {
                 </div>
               </div>
               <p className="mt-4 text-[#4B5563] text-[14.5px] leading-relaxed">
-                Strengthens supply chain capabilities and broadens our product portfolio. dossmegt's expertise and
-                industry relationships complement Shobha's manufacturing and export operations.
+                Strengthens supply chain capabilities and broadens our product portfolio. Dossmegt's expertise and
+                industry relationships complement Shobha manufacturing and export operations.
               </p>
             </div>
             <div className="lg:col-span-5 grid grid-cols-2 gap-3">
