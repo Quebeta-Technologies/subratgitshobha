@@ -330,9 +330,10 @@ function PartnerNetwork() {
             Our <span className="text-[#0738A6]">Global Partner Network</span>
           </h2>
           <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
-            Shobha Healthcare's strength comes from its network. We work with manufacturing partners,
-            distribution companies, and business collaborators who share our mission — to make quality
-            pharmaceutical products accessible to the people who need them most.
+            Partner company in Ghana ( West Africa )
+Greenwich Therapeutics & United Pharma
+Greenwich Therapeutics and United Pharma are Ghana-based pharmaceutical distribution and import companies operating at the forefront of healthcare access in Ghana. With a strong foundation built on industry expertise and strategic leadership, both organizations are jointly driven by four equal partners .
+Headquartered in Accra, the companies have established a growing national footprint with operational branches and depots in Kumasi and Tamale. Their integrated distribution network is supported by a robust infrastructure, including six supply vans dedicated to servicing pharmacies and healthcare institutions, as well as 20 company-provided vehicles for field teams.
           </p>
         </div>
 
