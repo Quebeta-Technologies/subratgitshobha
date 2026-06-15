@@ -441,8 +441,8 @@ function GhanaDeepDive() {
         </div>
         <div className="grid md:grid-cols-2 gap-5 mb-5">
           {[
-            { title:"Greenwich Therapeutics", tag:"Private Market", color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Brand building, pharmacy distribution, and prescription channel. Direct relationships with retail pharmacies and prescribers across Ghana." },
             { title:"United Pharma",          tag:"Public Sector",  color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Government institutions, public hospitals, and tender business. GMP-compliant warehouse storage and GDP-compliant shipment across all branches." },
+            { title:"Greenwich Therapeutics", tag:"Private Market", color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Brand building, pharmacy distribution, and prescription channel. Direct relationships with retail pharmacies and prescribers across Ghana." },  
           ].map((c, i) => (
             <motion.div key={c.title} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
               viewport={{ once:true }} transition={{ duration:0.5, delay: i * 0.1 }}
