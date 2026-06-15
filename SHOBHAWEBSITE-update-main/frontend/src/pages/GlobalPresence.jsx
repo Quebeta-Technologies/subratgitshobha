@@ -458,7 +458,7 @@ Headquartered in Accra, the companies have established a growing national footpr
             { icon:Users,      t:"Team Strength",       d:"12 Sales Professionals · 15 Medical Reps · 15 Supply Chain · 10 Indian Expat Specialists", c:"#0738A6" },
             { icon:Truck,      t:"Infrastructure",       d:"6 Supply Vans · 15 Company Vehicles · GMP Warehouses in Accra, Kumasi & Tamale",           c:"#9DCD4A" },
             { icon:Activity,   t:"Therapeutic Coverage", d:"MDI Inhalers · Oncology · Cardiology · Antibiotics · Nutraceuticals",                       c:"#F2C14E" },
-            { icon:TrendingUp, t:"Growth Trajectory",    d:"USD 5 M projected turnover in 2026 — scaling to USD 15 M by 2028",                          c:"#7A1F7A" },
+            
           ].map((b, i) => {
             const Icon = b.icon;
             return (
