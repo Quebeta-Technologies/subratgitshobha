@@ -356,7 +356,7 @@ function PartnerNetwork() {
                 </div>
               </div>
               <p className="mt-4 text-[#4B5563] text-[14.5px] leading-relaxed">
-                Strengthens supply chain capabilities and broadens our product portfolio. Dossmegt's expertise and
+                Strengthens supply chain capabilities and broadens our product portfolio. dossmegt's expertise and
                 industry relationships complement Shobha's manufacturing and export operations.
               </p>
             </div>
@@ -450,7 +450,7 @@ Headquartered in Accra, the companies have established a growing national footpr
             </motion.div>
           ))}
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:max-w-[75%] lg:mx-auto">
           {[
             { icon:Users,      t:"Team Strength",       d:"12 Sales Professionals · 15 Medical Reps · 15 Supply Chain · 10 Indian Expat Specialists", c:"#0738A6" },
             { icon:Truck,      t:"Infrastructure",       d:"6 Supply Vans · 15 Company Vehicles · GMP Warehouses in Accra, Kumasi & Tamale",           c:"#9DCD4A" },
@@ -461,7 +461,7 @@ Headquartered in Accra, the companies have established a growing national footpr
             return (
               <motion.div key={b.t} initial={{ opacity:0, y:16 }} whileInView={{ opacity:1, y:0 }}
                 viewport={{ once:true }} transition={{ duration:0.45, delay: i * 0.08 }}
-                className="bg-white border border-[#E9EEF5] rounded-2xl p-5 flex flex-col items-center text-center">
+                className="bg-white border border-[#E9EEF5] rounded-2xl p-5">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background:`${b.c}1A` }}>
                   <Icon className="w-5 h-5" style={{ color:b.c }} />
                 </div>
