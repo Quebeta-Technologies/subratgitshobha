@@ -419,8 +419,10 @@ function GhanaDeepDive() {
             <span className="text-[#1F6E3D]">United Pharma</span> &amp; Greenwich Therapeutics 
           </h2>
           <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
-            Distribution Partners — Accra (HQ) · Kumasi · Tamale. Two companies jointly driven by four
-            equal partners.
+            Partner company in Ghana ( West Africa )
+Greenwich Therapeutics & United Pharma
+Greenwich Therapeutics and United Pharma are Ghana-based pharmaceutical distribution and import companies operating at the forefront of healthcare access in Ghana. With a strong foundation built on industry expertise and strategic leadership, both organizations are jointly driven by four equal partners .
+Headquartered in Accra, the companies have established a growing national footprint with operational branches and depots in Kumasi and Tamale. Their integrated distribution network is supported by a robust infrastructure, including six supply vans dedicated to servicing pharmacies and healthcare institutions, as well as 20 company-provided vehicles for field teams.
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
