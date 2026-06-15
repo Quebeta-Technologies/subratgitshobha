@@ -316,9 +316,9 @@ function GlobalWorldMap() {
 /* ── PARTNER NETWORK ──────────────────────────────── */
 function PartnerNetwork() {
   const partners = [
-    { icon:Globe2,      name:"Shobha Global",          role:"International Partner",    color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Supports Shobha Healthcare's global expansion strategy, market access planning, and international business development across Africa, Asia, and the Middle East." },
-    { icon:Pill,        name:"Medisol Lifescience Pvt. Ltd.", role:"Distribution Collaborator",color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Our primary manufacturing partner for MDI inhalers and pharmaceutical products. Medisol Lifescience operates a state-of-the-art production facility in Gujarat — certified to both EU-GMP and WHO-GMP standards. Their precision-controlled manufacturing environments and rigorous quality systems ensure every product bearing the Shobha name meets the highest international benchmarks." },
-    { icon:Stethoscope, name:"TIL Healthcare",          role:"Healthcare Collaborator",  color:"#7A1F7A", bg:"rgba(122,31,122,0.10)", desc:"Established collaborator with a strong track record in institutional pharmaceutical supply. TIL Healthcare's experience across hospital channels adds depth to Shobha's distribution capabilities." },
+    { logo:"/brand/gob1.png",           name:"Shobha Global",          role:"International Partner",    color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Supports Shobha Healthcare's global expansion strategy, market access planning, and international business development across Africa, Asia, and the Middle East." },
+    { logo:"/brand/medisol-logo.png",   name:"Medisol Lifescience Pvt. Ltd.", role:"Distribution Collaborator",color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Our primary manufacturing partner for MDI inhalers and pharmaceutical products. Medisol Lifescience operates a state-of-the-art production facility in Gujarat — certified to both EU-GMP and WHO-GMP standards. Their precision-controlled manufacturing environments and rigorous quality systems ensure every product bearing the Shobha name meets the highest international benchmarks." },
+    { logo:"/brand/til-healthcare.png", name:"TIL Healthcare",         role:"Healthcare Collaborator",  color:"#7A1F7A", bg:"rgba(122,31,122,0.10)", desc:"Established collaborator with a strong track record in institutional pharmaceutical supply. TIL Healthcare's experience across hospital channels adds depth to Shobha's distribution capabilities." },
   ];
   return (
     <section data-testid="global-partner-network" className="py-16 md:py-20 bg-white relative overflow-hidden">
@@ -378,24 +378,21 @@ function PartnerNetwork() {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-5">
-          {partners.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <motion.div key={p.name} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
-                viewport={{ once:true, margin:"-40px" }} transition={{ duration:0.5, delay: i * 0.1 }}
-                className="card-hover relative bg-white border border-[#E9EEF5] rounded-2xl p-7 overflow-hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-30" style={{ background:p.color }} />
-                <div className="relative">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background:p.bg }}>
-                    <Icon className="w-6 h-6" style={{ color:p.color }} />
-                  </div>
-                  <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1.5" style={{ color:p.color }}>{p.role}</div>
-                  <h3 className="font-display font-semibold text-[#12233D] text-lg">{p.name}</h3>
-                  <p className="mt-3 text-[#4B5563] text-[13.5px] leading-relaxed">{p.desc}</p>
+          {partners.map((p, i) => (
+            <motion.div key={p.name} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
+              viewport={{ once:true, margin:"-40px" }} transition={{ duration:0.5, delay: i * 0.1 }}
+              className="card-hover relative bg-white border border-[#E9EEF5] rounded-2xl p-7 overflow-hidden">
+              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-30" style={{ background:p.color }} />
+              <div className="relative">
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 bg-white border border-[#E9EEF5] p-2 overflow-hidden">
+                  <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
                 </div>
-              </motion.div>
-            );
-          })}
+                <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1.5" style={{ color:p.color }}>{p.role}</div>
+                <h3 className="font-display font-semibold text-[#12233D] text-lg">{p.name}</h3>
+                <p className="mt-3 text-[#4B5563] text-[13.5px] leading-relaxed">{p.desc}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
@@ -478,6 +475,7 @@ Headquartered in Accra, the companies have established a growing national footpr
     </section>
   );
 }
+
 /* ── PARTNERSHIP OPPS + CTA ───────────────────────── */
 function PartnershipOpps() {
   const opps = [
