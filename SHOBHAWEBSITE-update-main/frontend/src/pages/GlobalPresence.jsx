@@ -381,12 +381,12 @@ function PartnerNetwork() {
           {partners.map((p, i) => (
             <motion.div key={p.name} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
               viewport={{ once:true, margin:"-40px" }} transition={{ duration:0.5, delay: i * 0.1 }}
-              className="card-hover relative bg-white border border-[#E9EEF5] rounded-2xl p-7 overflow-hidden">
+              className="card-hover relative bg-white rounded-2xl p-7 overflow-hidden">
               <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-30" style={{ background:p.color }} />
               <div className="relative">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 bg-white border border-[#E9EEF5] p-2 overflow-hidden">
-                  <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
-                </div>
+                <div className="w-28 h-20 rounded-2xl flex items-center justify-center mb-5 bg-white p-2 overflow-hidden">
+  <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
+</div>
                 <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1.5" style={{ color:p.color }}>{p.role}</div>
                 <h3 className="font-display font-semibold text-[#12233D] text-lg">{p.name}</h3>
                 <p className="mt-3 text-[#4B5563] text-[13.5px] leading-relaxed">{p.desc}</p>
