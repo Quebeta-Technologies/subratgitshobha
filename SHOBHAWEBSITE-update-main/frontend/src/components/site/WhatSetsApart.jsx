@@ -55,7 +55,7 @@ const items = [
     color: "#E84D6C",
     bg: "rgba(232,77,108,0.12)",
     title: "Long-Term Partnerships, Built for Growth",
-    desc: "Our founder personally co-owns distribution companies in Ghana. When our partners succeed, we succeed. We are committed to the long haul — investing in shared growth that lasts.",
+    desc: "When our partners succeed, we succeed. We are committed to the long haul — investing in shared growth that lasts.",
   },
 ];
 

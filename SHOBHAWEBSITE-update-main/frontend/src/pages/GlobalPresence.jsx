@@ -461,7 +461,7 @@ Headquartered in Accra, the companies have established a growing national footpr
             return (
               <motion.div key={b.t} initial={{ opacity:0, y:16 }} whileInView={{ opacity:1, y:0 }}
                 viewport={{ once:true }} transition={{ duration:0.45, delay: i * 0.08 }}
-                className="bg-white border border-[#E9EEF5] rounded-2xl p-5">
+                className="bg-white border border-[#E9EEF5] rounded-2xl p-5 flex flex-col items-center text-center">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background:`${b.c}1A` }}>
                   <Icon className="w-5 h-5" style={{ color:b.c }} />
                 </div>
