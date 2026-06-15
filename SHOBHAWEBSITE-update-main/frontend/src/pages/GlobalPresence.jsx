@@ -478,90 +478,90 @@ Headquartered in Accra, the companies have established a growing national footpr
     </section>
   );
 }
-
-/* ── PARTNER NETWORK ──────────────────────────────── */
-function PartnerNetwork() {
-  const partners = [
-    { logo:"/brand/gob1.png", name:"Shobha Global",          role:"International Partner",    color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Supports Shobha Healthcare's global expansion strategy, market access planning, and international business development across Africa, Asia, and the Middle East." },
-    { logo:"/partners/medisol-logo.png",       name:"Medisol Lifescience Pvt. Ltd.", role:"Distribution Collaborator",color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Our primary manufacturing partner for MDI inhalers and pharmaceutical products. Medisol Lifescience operates a state-of-the-art production facility in Gujarat — certified to both EU-GMP and WHO-GMP standards. Their precision-controlled manufacturing environments and rigorous quality systems ensure every product bearing the Shobha name meets the highest international benchmarks." },
-    { logo:"/partners/til-healthcare-logo.png", name:"TIL Healthcare",         role:"Healthcare Collaborator",  color:"#7A1F7A", bg:"rgba(122,31,122,0.10)", desc:"Established collaborator with a strong track record in institutional pharmaceutical supply. TIL Healthcare's experience across hospital channels adds depth to Shobha's distribution capabilities." },
+/* ── PARTNERSHIP OPPS + CTA ───────────────────────── */
+function PartnershipOpps() {
+  const opps = [
+    { icon:Beaker,   title:"Diabetic Insulin Portfolios", color:"#0738A6", bg:"rgba(7,56,166,0.10)",   desc:"Partners supplying insulin and diabetes management products to expand our biologicals and critical care range." },
+    { icon:Pill,     title:"Anesthetic Products",        color:"#9DCD4A", bg:"rgba(157,205,74,0.15)", desc:"Surgical and critical care anaesthetics to broaden our hospital-facing portfolio." },
+    { icon:Sparkles, title:"Innovative Molecules",        color:"#F2C14E", bg:"rgba(242,193,78,0.18)", desc:"Novel and specialty pharmaceutical molecules across therapeutic areas where we are building our clinical presence." },
+    { icon:Heart,    title:"Critical Care Therapies",     color:"#E84D6C", bg:"rgba(232,77,108,0.10)", desc:"Additional critical care and hospital pharmacy products to deepen our institutional healthcare presence." },
   ];
   return (
-    <section data-testid="global-partner-network" className="py-16 md:py-20 bg-white relative overflow-hidden">
-      <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#0738A6]/[0.04] blur-3xl pointer-events-none" />
-      <div className="container-x relative">
-        <div className="max-w-3xl mb-12 md:mb-14">
-          <span className="eyebrow">Collaborations</span>
-          <h2 className="mt-4 font-display font-semibold text-[#12233D] text-2xl sm:text-3xl lg:text-[36px] tracking-tight leading-[1.15]">
-            Our <span className="text-[#0738A6]">Global Partner Network</span>
-          </h2>
-          <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
-            Shobha Healthcare's strength comes from its network. We work with manufacturing partners, distribution companies, and business collaborators who share our mission — to make quality pharmaceutical and nutraceutical products accessible to the people who need them most. Each relationship is built for the long term.</p>
-        </div>
-
-        {/* Featured — Medisol */}
-        <motion.div initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
-          viewport={{ once:true, margin:"-40px" }} transition={{ duration:0.6 }}
-          className="relative bg-gradient-to-br from-[#F7FAFD] to-white border border-[#E9EEF5] rounded-3xl p-8 md:p-10 overflow-hidden mb-8">
-          <div className="absolute top-0 right-0 w-72 h-72 bg-[#0738A6]/[0.06] rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0738A6] via-[#62C7F5] to-[#9DCD4A]" />
-          <div className="relative grid lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#0738A6]/10 text-[#0738A6] text-[10px] font-bold tracking-[0.2em] uppercase mb-4">
-                <Sparkles className="w-3 h-3" /> Featured · Manufacturing Partner
-              </div>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#0738A6] flex items-center justify-center shrink-0 shadow-[0_10px_24px_rgba(7,56,166,0.30)]">
-                  <Factory className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-display font-semibold text-[#12233D] text-xl md:text-2xl">Dossmegt Pharmaceuticals</h3>
-                  <div className="flex items-center gap-1.5 mt-1 text-[12.5px] text-[#4B5563]">
-                    <MapPin className="w-3.5 h-3.5 text-[#0738A6]" /> Distribution Collaborator
+    <>
+      <section data-testid="global-partnership-opps" className="py-16 md:py-20 bg-white relative overflow-hidden">
+        <div className="container-x relative">
+          <div className="max-w-3xl mb-12 md:mb-14">
+            <span className="eyebrow">Join Our Network</span>
+            <h2 className="mt-4 font-display font-semibold text-[#12233D] text-2xl sm:text-3xl lg:text-[36px] tracking-tight leading-[1.15]">
+              Interested in <span className="text-[#0738A6]">Partnering With Shobha?</span>
+            </h2>
+            <p className="mt-5 text-[#4B5563] text-[15.5px] leading-relaxed">
+              We are actively seeking partnerships with pharmaceutical companies, distributors, and healthcare
+              institutions across our target markets.
+            </p>
+          </div>
+          <div className="mb-3 text-[10px] font-bold tracking-[0.18em] uppercase text-[#4B5563]">What we are actively looking for</div>
+          <div className="grid md:grid-cols-2 gap-5">
+            {opps.map((o, i) => {
+              const Icon = o.icon;
+              return (
+                <motion.div key={o.title} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
+                  viewport={{ once:true, margin:"-40px" }} transition={{ duration:0.5, delay: i * 0.08 }}
+                  className="card-hover relative bg-white border border-[#E9EEF5] rounded-2xl p-7 overflow-hidden flex gap-5 items-start">
+                  <div className="absolute top-0 left-0 bottom-0 w-1" style={{ background:o.color }} />
+                  <div className="shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background:o.bg }}>
+                    <Icon className="w-7 h-7" style={{ color:o.color }} />
                   </div>
-                </div>
+                  <div className="flex-1">
+                    <h3 className="font-display font-semibold text-[#12233D] text-[17px] leading-snug">{o.title}</h3>
+                    <p className="mt-2 text-[#4B5563] text-[13.5px] leading-relaxed">{o.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden"
+        style={{ background:"linear-gradient(120deg,#0738A6 0%,#7A1F7A 55%,#9DCD4A 110%)" }}>
+        <div className="absolute inset-0 dot-grid opacity-25 pointer-events-none" />
+        <div className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full bg-[#62C7F5]/25 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-[#F2C14E]/20 blur-3xl pointer-events-none" />
+        <div className="container-x relative py-16 md:py-20">
+          <motion.div initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
+            viewport={{ once:true, margin:"-60px" }} transition={{ duration:0.6 }}
+            className="grid lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
+                <Building2 className="w-3.5 h-3.5 text-[#F2C14E]" />
+                <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/90">Ready to Explore a Partnership?</span>
               </div>
-              <p className="mt-4 text-[#4B5563] text-[14.5px] leading-relaxed">
-                Strengthens supply chain capabilities and broadens our product portfolio. dossmegt's expertise and
-                industry relationships complement Shobha's manufacturing and export operations.
+              <h2 className="font-display font-semibold text-white text-3xl md:text-4xl lg:text-[44px] leading-[1.1] tracking-tight">
+                Long-term relationships,{" "}
+                <span className="bg-gradient-to-r from-[#F2C14E] to-[#62C7F5] bg-clip-text text-transparent">
+                  built on shared success.
+                </span>
+              </h2>
+              <p className="mt-6 text-white/80 text-[15px] md:text-[16px] max-w-2xl leading-relaxed">
+                Tell us about your business, your market, and what you are looking for.
+                Our team responds within one working day.
               </p>
             </div>
-            <div className="lg:col-span-5 grid grid-cols-2 gap-3">
-              {[
-                { v:"EU-GMP",  l:"Certified", c:"#0738A6", bg:"rgba(7,56,166,0.10)"   },
-                { v:"WHO-GMP", l:"Compliant", c:"#9DCD4A", bg:"rgba(157,205,74,0.15)" },
-                { v:"Mumbai", l:"India",     c:"#F2C14E", bg:"rgba(242,193,78,0.18)" },
-                { v:"MDI",     l:"Collaborator",c:"#7A1F7A", bg:"rgba(122,31,122,0.10)" },
-              ].map(s => (
-                <div key={s.l} className="bg-white border border-[#E9EEF5] rounded-2xl p-4 text-center">
-                  <div className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.15em] uppercase mb-2"
-                    style={{ background:s.bg, color:s.c }}>{s.l}</div>
-                  <div className="font-display font-semibold text-lg" style={{ color:s.c }}>{s.v}</div>
-                </div>
-              ))}
+            <div className="lg:col-span-4 flex flex-col gap-3">
+              <Link to="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-white text-[#0738A6] font-semibold rounded-full px-6 py-4 hover:bg-[#F7FAFD] transition-all shadow-[0_10px_30px_rgba(0,0,0,0.18)] text-[14px]">
+                Send a Partnership Enquiry <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              <a href="#"
+                className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white/70 text-white font-semibold rounded-full px-6 py-4 hover:bg-white/10 transition-all text-[14px]">
+                <Download className="w-4 h-4" /> Download Product Catalogue
+              </a>
             </div>
-          </div>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-5">
-          {partners.map((p, i) => (
-            <motion.div key={p.name} initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
-              viewport={{ once:true, margin:"-40px" }} transition={{ duration:0.5, delay: i * 0.1 }}
-              className="card-hover relative bg-white border border-[#E9EEF5] rounded-2xl p-7 overflow-hidden">
-              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-30" style={{ background:p.color }} />
-              <div className="relative">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 bg-white border border-[#E9EEF5] p-2 overflow-hidden">
-                  <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
-                </div>
-                <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1.5" style={{ color:p.color }}>{p.role}</div>
-                <h3 className="font-display font-semibold text-[#12233D] text-lg">{p.name}</h3>
-                <p className="mt-3 text-[#4B5563] text-[13.5px] leading-relaxed">{p.desc}</p>
-              </div>
-            </motion.div>
-          ))}
+          </motion.div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
