@@ -339,7 +339,7 @@ function PartnerNetwork() {
               </div>
               {/* ── LOGO replaces icon ── */}
               <div className="flex items-center gap-4 mb-3">
-                <div className="w-36 h-16 rounded-2xl overflow-hidden shrink-0 flex items-center justify-center p-2 shadow-sm">
+                <div className="w-36 h-16 overflow-hidden shrink-0 flex items-center justify-center p-2">
                   <img
                     src="/brand/dossmegt.png"
                     alt="Dossmegt Pharmaceuticals logo"
