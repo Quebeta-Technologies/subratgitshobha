@@ -145,8 +145,6 @@ function GlobalWorldMap() {
 
   return (
     <section data-testid="global-world-map" className="relative overflow-hidden bg-white">
-
-      {/* Header */}
       <div className="container-x pt-14 pb-8 text-center mx-auto">
         <span className="eyebrow">Where in the World We Operate</span>
         <h2 className="mt-4 font-display font-semibold text-[#12233D] text-2xl sm:text-3xl lg:text-[40px] tracking-tight leading-[1.1]">
@@ -157,7 +155,6 @@ function GlobalWorldMap() {
         </p>
       </div>
 
-      {/* MAP */}
       <div className="relative w-full overflow-hidden mx-auto" style={{ background:"#A8D0E8" }}>
         <ComposableMap
           width={960}
@@ -193,7 +190,6 @@ function GlobalWorldMap() {
             }
           </Geographies>
 
-          {/* Markers */}
           {COUNTRIES.map(c => {
             const sc   = STATUS_MAP[c.status];
             const isHQ = c.status === "HQ";
@@ -232,7 +228,6 @@ function GlobalWorldMap() {
           })}
         </ComposableMap>
 
-        {/* Tooltip */}
         {tooltip && (
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2 pointer-events-none z-20
             bg-white/95 backdrop-blur border border-[#E9EEF5] rounded-2xl
@@ -249,7 +244,6 @@ function GlobalWorldMap() {
         )}
       </div>
 
-      {/* Legend */}
       <div className="bg-white border-y border-[#E9EEF5]">
         <div className="container-x mx-auto py-4 flex flex-wrap items-center justify-center gap-6 sm:justify-between">
           <div className="flex flex-wrap justify-center gap-5">
@@ -265,7 +259,6 @@ function GlobalWorldMap() {
         </div>
       </div>
 
-      {/* Region cards — 4 columns */}
       <div className="bg-[#F7FAFD] py-12">
         <div className="container-x mx-auto">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -333,7 +326,7 @@ function PartnerNetwork() {
             Shobha Healthcare's strength comes from its network. We work with manufacturing partners, distribution companies, and business collaborators who share our mission — to make quality pharmaceutical and nutraceutical products accessible to the people who need them most. Each relationship is built for the long term.</p>
         </div>
 
-        {/* Featured — Medisol */}
+        {/* Featured — Dossmegt */}
         <motion.div initial={{ opacity:0, y:24 }} whileInView={{ opacity:1, y:0 }}
           viewport={{ once:true, margin:"-40px" }} transition={{ duration:0.6 }}
           className="relative bg-gradient-to-br from-[#F7FAFD] to-white border border-[#E9EEF5] rounded-3xl p-8 md:p-10 overflow-hidden mb-8">
@@ -344,9 +337,14 @@ function PartnerNetwork() {
               <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#0738A6]/10 text-[#0738A6] text-[10px] font-bold tracking-[0.2em] uppercase mb-4">
                 <Sparkles className="w-3 h-3" /> Featured · Manufacturing Partner
               </div>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-2xl bg-[#0738A6] flex items-center justify-center shrink-0 shadow-[0_10px_24px_rgba(7,56,166,0.30)]">
-                  <Factory className="w-6 h-6 text-white" />
+              {/* ── LOGO replaces icon ── */}
+              <div className="flex items-center gap-4 mb-3">
+                <div className="w-36 h-16 rounded-2xl overflow-hidden shrink-0 bg-white border border-[#E9EEF5] flex items-center justify-center p-2 shadow-sm">
+                  <img
+                    src="/brand/dossmegt.png"
+                    alt="Dossmegt Pharmaceuticals logo"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div>
                   <h3 className="font-display font-semibold text-[#12233D] text-xl md:text-2xl">Dossmegt Pharmaceuticals</h3>
@@ -364,7 +362,7 @@ function PartnerNetwork() {
               {[
                 { v:"EU-GMP",  l:"Certified", c:"#0738A6", bg:"rgba(7,56,166,0.10)"   },
                 { v:"WHO-GMP", l:"Compliant", c:"#9DCD4A", bg:"rgba(157,205,74,0.15)" },
-                { v:"Mumbai", l:"India",     c:"#F2C14E", bg:"rgba(242,193,78,0.18)" },
+                { v:"Mumbai",  l:"India",     c:"#F2C14E", bg:"rgba(242,193,78,0.18)" },
                 { v:"MDI",     l:"Collaborator",c:"#7A1F7A", bg:"rgba(122,31,122,0.10)" },
               ].map(s => (
                 <div key={s.l} className="bg-white border border-[#E9EEF5] rounded-2xl p-4 text-center">
@@ -385,8 +383,8 @@ function PartnerNetwork() {
               <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-30" style={{ background:p.color }} />
               <div className="relative">
                 <div className="w-28 h-20 rounded-2xl flex items-center justify-center mb-5 bg-white p-2 overflow-hidden">
-  <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
-</div>
+                  <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
+                </div>
                 <div className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1.5" style={{ color:p.color }}>{p.role}</div>
                 <h3 className="font-display font-semibold text-[#12233D] text-lg">{p.name}</h3>
                 <p className="mt-3 text-[#4B5563] text-[13.5px] leading-relaxed">{p.desc}</p>
@@ -455,7 +453,6 @@ Headquartered in Accra, the companies have established a growing national footpr
             { icon:Users,      t:"Team Strength",       d:"12 Sales Professionals · 15 Medical Reps · 15 Supply Chain · 10 Indian Expat Specialists", c:"#0738A6" },
             { icon:Truck,      t:"Infrastructure",       d:"6 Supply Vans · 15 Company Vehicles · GMP Warehouses in Accra, Kumasi & Tamale",           c:"#9DCD4A" },
             { icon:Activity,   t:"Therapeutic Coverage", d:"MDI Inhalers · Oncology · Cardiology · Antibiotics · Nutraceuticals",                       c:"#F2C14E" },
-            
           ].map((b, i) => {
             const Icon = b.icon;
             return (
