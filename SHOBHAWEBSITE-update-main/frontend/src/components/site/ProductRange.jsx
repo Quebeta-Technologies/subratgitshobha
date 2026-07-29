@@ -323,6 +323,15 @@ const products = [
     color: "#2E7D32",
     image: "/brand/home.png",
   },
+  {
+    cat: "Anti Biotics",
+    tabKey: "Anti Biotics",
+    name: "KESAR 1125mg",
+    spec: "Amoxicillin + Clavulanic Acid · 16×1 Sachets",
+    desc: "Sachet-form antibiotic combination for mid-range dosing. Ideal for patients who cannot swallow tablets.",
+    color: "#2E7D32",
+    image: "/brand/home.png",
+  },
 
   // ── Injectables ───────────────────────────────────────
   {
