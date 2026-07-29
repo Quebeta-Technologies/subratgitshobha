@@ -77,7 +77,7 @@ const products = [
   {
     cat: "MDI Inhaler",
     tabKey: "MDI Inhalers",
-    name: "SIMBACORT 6+200mcg",
+    name: "SYMFORA 6+200mcg",
     spec: "Formoterol + Budesonide Inhaler · 120 Doses",
     desc: "Dual-action maintenance inhaler combining a long-acting beta-agonist with an inhaled steroid for asthma and COPD.",
     color: "#62C7F5",

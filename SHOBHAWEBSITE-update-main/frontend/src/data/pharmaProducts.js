@@ -80,7 +80,7 @@ export const categories = [
         composition: "Formoterol + Budesonide Inhaler",
         strength: "6 + 200",
         meterDose: "120",
-        brand: "SIMBACORT 6+200 MCG",
+        brand: "SYMFORA 6+200 MCG",
       },
       {
         sno: 9,
