@@ -350,7 +350,7 @@ const products = [
     spec: "Pantoprazole Injection · 40mg Vial",
     desc: "IV proton pump inhibitor for stress ulcer prophylaxis and acute gastrointestinal bleeding in hospitalised patients.",
     color: "#C62828",
-    image: "/brand/home.png",
+    image: "/brand/pentopaz.png",
   },
   {
     cat: "Injectables",
@@ -368,7 +368,7 @@ const products = [
     spec: "Omeprazole Injection · 40mg Vial",
     desc: "Parenteral omeprazole for acid-peptic disorders in ICU and post-operative settings where oral therapy is not feasible.",
     color: "#C62828",
-    image: "/brand/home.png",
+    image: "/brand/ompra.png",
   },
   {
     cat: "Injectables",
